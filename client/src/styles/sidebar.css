@@ -1,0 +1,8 @@
+.sidebar {
+    padding-top: 10px;
+}
+
+.sidebarItem{
+    border: none;
+    cursor: pointer;
+}
