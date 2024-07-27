@@ -1,5 +1,5 @@
 const ApiError = require('../error/ApiError');
-const { ProductType } = require('../models/models');
+const { ProductType } = require('../database/models/models');
 
 class ProductTypeController{
     async create(req, resp, next){

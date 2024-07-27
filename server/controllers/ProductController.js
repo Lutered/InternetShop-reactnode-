@@ -1,5 +1,5 @@
 const ApiError = require('../error/ApiError');
-const { Product } = require('../models/models');
+const { Product } = require('../database/models/models');
 const uuid = require('uuid');
 const path = require('path');
 

@@ -5,7 +5,9 @@ import Button from 'react-bootstrap/Button';
 const cardStyle = { 
   width: '18rem', 
   float: 'left', 
-  margin:'5px' 
+  margin:'5px',
+  padding: '5px',
+  height: '600px' 
 };
 
 const containerStyle = {
@@ -17,8 +19,10 @@ function Cards ({elements}) {
         <div style={containerStyle}>
             {elements.map((val, index) => 
               <Card style={cardStyle} key ={index}>
-                <Card.Img variant="top" src={val.Img} />
-                <Card.Body>
+                <div style={{height:'400px', position: 'relative'}}>
+                  <Card.Img variant="top" src={val.Img} style={{position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)'}}/>
+                </div>
+                <Card.Body style={{height:'200px'}}>
                   <Card.Title>{val.Title}</Card.Title>
                   <Card.Text> {val.Text} </Card.Text>
                   {/* <Button variant="primary">Go somewhere</Button> */}

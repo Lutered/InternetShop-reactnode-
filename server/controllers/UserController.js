@@ -1,5 +1,5 @@
 const ApiError = require('../error/ApiError');
-const {User, Basket} = require('../models/models');
+const {User, Basket} = require('../database/models/models');
 const hashHelper = require('../helpers/hashHelper');
 const jwt = require('jsonwebtoken');
 

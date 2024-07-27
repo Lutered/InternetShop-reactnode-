@@ -1,6 +1,5 @@
 const sequelize = require('../database');
 const {DataTypes} = require('sequelize');
-const hashHelper = require('../helpers/hashHelper');
 
 const Product = sequelize.define('product', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
@@ -52,21 +51,7 @@ const BasketProduct = sequelize.define('basket_product', {
 
 const TypeBrand = sequelize.define('type_brand', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-}); 
-
-const initFn = () => {
-    process.env.USER_PASS_ROUND;
-    User.findOrCreate({
-        where: {
-            name: 'MASTER_ADMIN'
-        },
-        defaults: { 
-            name: 'MASTER_ADMIN',
-            password: hashHelper.hashPasswordSync(process.env.MASTER_ADMIN_PASS),
-            role: 'MASTER_ADMIN'
-        }
-    });
-};
+});
 
 
 User.hasOne(Basket);
@@ -98,6 +83,5 @@ module.exports = {
     Comment, 
     User,
     Basket,
-    BasketProduct,
-    initFn
+    BasketProduct
 }

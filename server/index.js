@@ -1,8 +1,11 @@
 require('dotenv').config();
 
 const express = require('express');
-const sequelize = require('./database');
-const models = require('./models/models');
+
+const sequelize = require('./database/database');
+const models = require('./database/models/models');
+const initDatabase = require('./database/initDatabase');
+
 const cors = require('cors');
 const fileUpload = require('express-fileupload');
 const router = require('./routes/index');
@@ -23,9 +26,8 @@ app.use(errorHandler);
 const start = async () => {
     try {
         await sequelize.authenticate();
-        await sequelize.sync().then((seq) => {
-            models.initFn();
-        });
+        await sequelize.sync();
+        await initDatabase(models);
         app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
     } catch (e) {
         console.log(e);
