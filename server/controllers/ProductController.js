@@ -38,7 +38,19 @@ class ProductController{
         if (brandId && typeId) {
             products = await Product.findAndCountAll({where:{typeId, brandId}, limit, offset})
         }
-        return res.json(products)
+
+        return res.json(products);
+    }
+
+    async getOne(req, res){
+        let {id} = req.params;
+
+        if(!id)
+            return res.status(400).send('Id parameter cannot be empty')
+
+        let product = await Product.findOne({where: {id}});
+
+        return res.json(product);
     }
 }
 

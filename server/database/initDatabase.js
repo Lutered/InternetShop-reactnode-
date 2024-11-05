@@ -15,8 +15,9 @@ module.exports = async (models) => {
     });
 
     //clear data
-    //await models.ProductType.destroyAll();
-    //await models.Brand.destroyAll();
+    await models.ProductType.destroyAll();
+    await models.Brand.destroyAll();
+    await models.Brand.destroyAll();
 
     //Data for testing and debugging
     const productTypeCount = await models.ProductType.count();

@@ -12,6 +12,11 @@ export const fetchProducts = async (typeId, brandId, page, limit= 5) => {
     return data;
 };
 
+export const fetchProductById = async (id) => {
+    const {data} = await $host.get('api/product/' + id);
+    return data;
+};
+
 export const fetchProductTypes = async (page, limit = 20) => {
     const {data} = await $host.get('api/productType', {params: {
          page, limit

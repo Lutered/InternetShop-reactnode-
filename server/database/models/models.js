@@ -13,7 +13,15 @@ const Product = sequelize.define('product', {
 const ProductType = sequelize.define('product_type', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
-    order: {type: DataTypes.INTEGER}
+    order: {type: DataTypes.INTEGER},
+    popularity: {type: DataTypes.DOUBLE}
+});
+
+const ProductSubType = sequelize.define('product_subtype', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    name: {type: DataTypes.STRING, unique: true, allowNull: false},
+    order: {type: DataTypes.INTEGER},
+    popularity: {type: DataTypes.DOUBLE}
 });
 
 const Brand = sequelize.define('brand', {
@@ -63,6 +71,9 @@ Product.belongsTo(ProductType);
 Brand.hasMany(Product);
 Product.belongsTo(Brand);
 
+ProductType.hasMany(ProductSubType);
+ProductSubType.belongsTo(ProductType);
+
 Saler.hasMany(Product);
 Product.belongsTo(Saler);
 
@@ -78,6 +89,7 @@ Brand.belongsToMany(ProductType, {through: TypeBrand });
 module.exports = {
     Product,
     ProductType,
+    ProductSubType,
     Brand,
     Saler,
     Comment, 
