@@ -1,67 +1,61 @@
 import {useState, useEffect} from 'react';
+import { useSearchParams, useNavigate, useLocation } from 'react-router-dom';
+
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+
+import ProductCards from '../components/ProductCards';
+import PaginationPanel from '../components/Pagination';
+import Sidebar from '../components/Sidebar';
+import { fetchProductTypes, searchProducts, fetchCategoryById } from '../http/ProductApi';
+import BasketHelper from '../helpers/BasketHelper';
+
+import globalStores from '../globalStores';
 
 import '../styles/page.css';
 
-import Cards from '../components/Cards';
-
-import { fetchProductTypes, fetchProducts } from '../http/productApi';
-
-import Container from 'react-bootstrap/Container';
-import Sidebar from '../components/Sidebar';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
-import Stack from 'react-bootstrap/Stack';
-import Carousel from 'react-bootstrap/Carousel';
-import carousel1 from '../static/images/carousel01.jpg';
-import carousel2 from '../static/images/carousel02.jpg';
-
-//import Pagination from 'react-bootstrap/Pagination';
-import PaginationPanel from '../components/Pagination'
-
-const carouselImg = [
-    {src: carousel1, alt: 'First slide', title: 'First slide label', text: 'Nulla vitae elit libero, a pharetra augue mollis interdum'},
-    {src: carousel2, alt: 'Second slide', title: 'Second slide label', text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'}
-];
-
-// const sidebarItemsArray = [
-//     "Ноутбуки и компютеры",
-//     "Бытовая техника",
-//     "Телевизоры",
-//     "Телефоны"
-// ];
-
-// const sidebarItemsArray = [
-//     { text: "Sidebar Item 1", action: () => {} },
-//     { text: "Sidebar Item 2", action: () => {} },    
-//     { text: "Sidebar Item 3", action: () => {} },    
-//     { text: "Sidebar Item 4", action: () => {} },
-//     { text: "Sidebar Item 5", action: () => {} }
-// ];
-
-// const cards = [
-//     {Title: 'Test title 1', Text: 'Test text 1'},
-//     {Title: 'Test title 2', Text: 'Test text 2'}
-// ];
-
 const SearchPage = () => {
-    const [sidebarItemsArray, setSidebarItems] = useState([]);
+    const pageLimit = 9;
+
     const [cardsArray, setCards] = useState([]);
-    const [currentPage, setPage] = useState(1);
+    //const [currentPage, setPage] = useState(1);
     const [numberOfPages, setTotalPages] = useState(1);
-    //const [cards, setCards] = useState([]);
+    const [searchTitle, setSearchTitle] = useState();
 
-    const pageLimit = 5;
+    const [searchParams, setSearchParams] = useSearchParams();
+    const navigate = useNavigate();
+    const location = useLocation();
 
-    const requestProducts = (typeId, brandId, page, limit) => {
-        fetchProducts(typeId, brandId, page, limit).then(data => {
+    const categoryId = searchParams.get('categoryId');
+    const brandId = searchParams.get('brandId');
+    const searchValue = searchParams.get('search');
+    const currentPage = searchParams.get('page') ? Number(searchParams.get('page')) : 1;
+
+    const openCardFn = (id) => {
+        navigate(`/product?id=${id}`);
+    };
+
+    const basketClickFn = (id) => {
+        BasketHelper.addProductToBasket(id, {showBasketWnd: true});
+    };
+
+    const getPageProducts = (page) => {
+        const searchParams = {
+            categoryId,
+            brandId,
+            searchValue
+        }; 
+
+        searchProducts(page, pageLimit, searchParams).then(data => {
             const array = data.rows.map(val => {
                 return {
                     id: val.id,
-                    Title: val.name,
-                    Text: val.description,
-                    Img: process.env.REACT_APP_API_URL + '/photos/' + val.img
+                    title: val.name,
+                    text: val.description,
+                    rating: val.rating,
+                    price: val.price,
+                    img: process.env.REACT_APP_IMAGES_FOLDER_URL + val.img
                 };
             });
             setCards(array);
@@ -73,59 +67,52 @@ const SearchPage = () => {
     };
 
     const paginationClickFn = (pageNumber) => {
-        setPage(pageNumber);
-        requestProducts(null, null, pageNumber, pageLimit);
+       // setPage(pageNumber);
+       // getPageProducts(pageNumber);
+
+       searchParams.set('page', pageNumber);
+       navigate(`${location.pathname}?${searchParams.toString()}`);
     };
 
     useEffect(() => {
-        fetchProductTypes().then(data => {
-            const array = data.rows.map(val => {
-                return {
-                    text: val.name,
-                    action: () => {}
-                };
-            });
-            setSidebarItems(array);
-        });
+        getPageProducts(currentPage);
 
-        requestProducts(null, null, 1, pageLimit);
-    }, []);
+        if(categoryId){
+            fetchCategoryById(categoryId).then(data => {
+                setSearchTitle(data.name);
+            });
+        }
+    }, [searchParams]);
 
     return (
        <Container className='maincontainer' >
             <Row>
                 <Col xs={3}> 
-                    <Sidebar sidebarArray={sidebarItemsArray}/>
+                    {/* <Sidebar sidebarArray={sidebarItemsArray}/> */}
                 </Col>
                 <Col  xs={9}>
-                    {/* <Carousel data-bs-theme="dark">
-                        {carouselImg.map((item, index) =>
-                             <Carousel.Item key={index}>
-                                <img
-                                    className="d-block w-100"
-                                    src={item.src}
-                                    alt={item.alt}
-                                />
-                                <Carousel.Caption>
-                                <h5>{item.title}</h5>
-                                <p>{item.text}</p>
-                                </Carousel.Caption>
-                            </Carousel.Item> 
-                        )}
-                    </Carousel> */}
                     <Container>
+                        {
+                            searchTitle ? 
+                            <Row>
+                                <h2 className='searchTitle'>{searchTitle}</h2>
+                            </Row>
+                            : null
+                        }
                         <Row>
-                            <Cards elements = {cardsArray}> </Cards>
+                            <ProductCards elements = {cardsArray} cardClickFn={openCardFn} basketClickFn={basketClickFn} > </ProductCards>
                         </Row>
-                        <Row>
-                            {/* <Pagination style={{margin: 'auto'}}>
-                                <Pagination.Item key='1' active={true} >1</Pagination.Item>
-                                <Pagination.Item key='2' active={false} >2</Pagination.Item>
-                                <Pagination.Item key='3' active={false} >3</Pagination.Item>
-                            </Pagination> */}
-
-                            <PaginationPanel currentPage={currentPage} numberOfPages={numberOfPages} onClickFn={paginationClickFn}></PaginationPanel>
-                        </Row>
+                        {
+                            numberOfPages > 1 ? 
+                                <Row>
+                                    <PaginationPanel 
+                                        currentPage={currentPage} 
+                                        numberOfPages={numberOfPages} 
+                                        onClickFn={paginationClickFn}>
+                                    </PaginationPanel>
+                                </Row>
+                                : null
+                        }
                     </Container>
                 </Col>
             </Row>

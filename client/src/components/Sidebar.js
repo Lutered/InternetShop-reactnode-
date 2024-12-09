@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
+
 import ListGroup from 'react-bootstrap/ListGroup';
+
 import '../styles/sidebar.css';
-//import "@trendmicro/react-sidenav/dist/react-sidenav.css";
 
-const Sidebar = ({sidebarArray, className}) => {
-    const defaultCls = 'sidebar';
-    const sidebarClass = className || defaultCls;
-
+const Sidebar = ({sidebarArray, clickFn}) => {
     return (
         <>
-            <ListGroup className={sidebarClass}>
+            <ListGroup className='sidebar'>
                 {sidebarArray.map((val, index) => 
-                    <ListGroup.Item key={index} className="sidebarItem" onClick={val.action}>{val.text}</ListGroup.Item>              
+                    <ListGroup.Item key={index} className="sidebarItem" onClick={() => { clickFn && clickFn(val.id)}}>{val.text}</ListGroup.Item>              
                 )}
             </ListGroup>
         </>

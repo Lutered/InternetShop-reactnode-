@@ -1,8 +1,16 @@
 import Home from "./pages/Home";
-import Detail from "./pages/Detail";
+import ProductDetail from "./pages/ProductDetail";
+import TypeDetail from "./pages/TypeDetail";
 import Admin from "./pages/Admin";
 import Search from "./pages/Search";
-import { HOME_ROUTE, ADMIN_ROUTE, DETAIL_ROUTE, SEARCH_ROUTE } from "./utils/consts";
+
+import { 
+        HOME_ROUTE, 
+        ADMIN_ROUTE, 
+        PRODUCT_DETAIL_ROUTE, 
+        SEARCH_ROUTE, 
+        TYPE_DETAIL_ROUTE 
+} from "./utils/consts";
 
 export const authRoutes = [
     {
@@ -17,11 +25,15 @@ export const publicRoutes = [
         Component: Home
     },
     {
-        path: DETAIL_ROUTE,
-        Component: Detail
+        path: PRODUCT_DETAIL_ROUTE,
+        Component: ProductDetail
     },
     {
         path: SEARCH_ROUTE,
         Component: Search
+    },
+    {
+        path: TYPE_DETAIL_ROUTE,
+        Component: TypeDetail
     },
 ];

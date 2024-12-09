@@ -1,0 +1,82 @@
+.basket .modal-dialog{
+    max-width: 1000px;
+    width: 80%;
+    height: 80%;
+}
+
+.basket .modal-content{
+    height: 100%;
+}
+
+.basket .modal-body{
+    overflow-y: scroll;
+}
+
+.basketItem{
+    margin:10px 5px; 
+    padding: 10px; 
+    border-radius: 5px;
+    border: 1px solid lightgray
+}
+
+.basketItem-body{
+    display: flex;
+}
+
+.basketItem-body-img{
+    width: 100px; 
+    height: 100px;
+}
+
+.basketItem-body-text-container{
+    width: 100%;
+}
+
+.basketItem-body-text{
+    margin: 5px 0px 5px 10px;
+}
+
+.basketItem-footer{
+    display: flex;
+    justify-content: end;
+}
+
+.baketItem-quantity-container{
+    display: flex; 
+    align-items: center;
+}
+
+.basketItem-quantity-input{
+    width: 60px; 
+    height: 40px;
+    border-radius: 5px;  
+    text-align: center;
+    border: 1px solid lightgray;
+    margin: 0 5px;
+}
+
+.basketItem-quantity-buttons{
+    color: rgb(47, 135, 193);
+    cursor: pointer;
+}
+
+.disabledIconStyle{
+    color: lightgray;
+}
+
+.basketItem-price-container{
+    display: flex; 
+    align-items: center;
+    min-width: 150px;
+    justify-content: end;
+}
+
+.basketItem-price{
+    font-size: 20px;
+    font-weight:bold; 
+    margin: 0 5px 0 15px;
+}
+
+.basketItem-currencyIcon{
+    margin-left: 1px;
+}

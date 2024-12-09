@@ -1,6 +1,6 @@
-import {makeAutoObservable} from "mobx";
+import { makeAutoObservable} from "mobx";
 
-export default class DeviceStore {
+export default class ProductStore {
     constructor(){
         makeAutoObservable(this);
     }

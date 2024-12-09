@@ -5,28 +5,28 @@ const Product = sequelize.define('product', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
     price: {type: DataTypes.DECIMAL, allowNull: false},
-    img: {type: DataTypes.STRING, allowNull: false},
-    description: {type: DataTypes.STRING},
+    img: {type: DataTypes.STRING, allowNull: true},
+    description: {type: DataTypes.TEXT},
     rating: {type: DataTypes.DOUBLE, defaultValue: 0}
 });
 
 const ProductType = sequelize.define('product_type', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
-    order: {type: DataTypes.INTEGER},
-    popularity: {type: DataTypes.DOUBLE}
+    order: {type: DataTypes.INTEGER}
 });
 
-const ProductSubType = sequelize.define('product_subtype', {
+const ProductCategory = sequelize.define('product_category', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
-    order: {type: DataTypes.INTEGER},
+    img: {type: DataTypes.STRING, allowNull: true},
     popularity: {type: DataTypes.DOUBLE}
 });
 
 const Brand = sequelize.define('brand', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    name: {type: DataTypes.STRING, unique: true, allowNull: false}
+    name: {type: DataTypes.STRING, unique: true, allowNull: false},
+    //popularity: {type: DataTypes.DOUBLE}
 });
 
 const Saler = sequelize.define('saler', {
@@ -54,6 +54,7 @@ const Basket = sequelize.define('basket', {
 
 const BasketProduct = sequelize.define('basket_product', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    count: {type: DataTypes.INTEGER},
 });
 
 
@@ -65,14 +66,17 @@ const TypeBrand = sequelize.define('type_brand', {
 User.hasOne(Basket);
 Basket.belongsTo(User);
 
-ProductType.hasMany(ProductType);
+ProductType.hasMany(Product);
 Product.belongsTo(ProductType);
 
 Brand.hasMany(Product);
 Product.belongsTo(Brand);
 
-ProductType.hasMany(ProductSubType);
-ProductSubType.belongsTo(ProductType);
+ProductType.hasMany(ProductCategory);
+ProductCategory.belongsTo(ProductType);
+
+ProductCategory.hasMany(Product, {constraints: false});
+Product.belongsTo(ProductCategory, {constraints: false});
 
 Saler.hasMany(Product);
 Product.belongsTo(Saler);
@@ -83,13 +87,16 @@ Comment.belongsTo(Product);
 Basket.hasMany(BasketProduct);
 BasketProduct.belongsTo(Basket);
 
+Product.hasMany(BasketProduct);
+BasketProduct.belongsTo(Product);
+
 ProductType.belongsToMany(Brand, {through: TypeBrand });
 Brand.belongsToMany(ProductType, {through: TypeBrand });
 
 module.exports = {
     Product,
     ProductType,
-    ProductSubType,
+    ProductCategory,
     Brand,
     Saler,
     Comment, 

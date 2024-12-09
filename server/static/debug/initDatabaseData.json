@@ -1,20 +1,86 @@
 {
-    "products": [
-        {"id": 1, "name": "Phone1", "price": 15, "img": "phone1.jpg", "description": "description", "rating": 0, "productTypeId": 1, "brandId": 1},
-        {"id": 2, "name": "Phone2", "price": 19, "img": "phone2.jpg", "description": "description", "rating": 0, "productTypeId": 1, "brandId": 1},
-        {"id": 3, "name": "Laptop1", "price": 15, "img": "laptop1.jpg", "description": "description", "rating": 0, "productTypeId": 2, "brandId": 1},
-        {"id": 4, "name": "Laptop2", "price": 15, "img": "laptop2.jpg", "description": "description", "rating": 0, "productTypeId": 2, "brandId": 1},
-        {"id": 5, "name": "VacuumCleaner1", "price": 15, "img": "vacuumcleaner1.jpg", "description": "description", "rating": 0, "productTypeId": 3, "brandId": 1},
-        {"id": 6, "name": "VacuumCleaner2", "price": 15, "img": "vacuumcleaner2.jpg", "description": "description", "rating": 0, "productTypeId": 3, "brandId": 1},
-        {"id": 7, "name": "Air Conditioner", "price": 15, "img": "airсonditioner1.jpg", "description": "description", "rating": 0, "productTypeId": 4, "brandId": 1}
-    ],
     "types": [ 
-        {"id": 1, "name": "Телефоны"},
-        {"id": 2, "name": "Компютеры"},
-        {"id": 3, "name": "Пылесосы"},
-        {"id": 5, "name": "Кондиционеры"} 
+        {"id": 1, "name": "Смартфоны и електроника", "order":1 },
+        {"id": 2, "name": "Ноутбуки и компьютеры", "order":2 },
+        {"id": 3, "name": "Бытовая техника", "img":"vacuumcleaner1.jpg", "order":3 },
+        {"id": 4, "name": "Кондиционеры", "img":"airсonditioner1.jpg", "order":4 } 
     ],
-    "brand": [
-        {"id": 1, "name": "Default"}
-    ]
+    "categories":[
+        {"id": 1, "name": "Айфоны", "productTypeId":1, "img": "iphone15.jpg"},
+        {"id": 2, "name": "Андроиды", "productTypeId":1, "img": "samsungs24.jpg"},
+        {"id": 3, "name": "Ноутбуки", "productTypeId": 2, "img": "laptop1.jpg"},
+        {"id": 4, "name": "ПК", "productTypeId": 2, "img": "laptop1.jpg"},
+        {"id": 5, "name": "Пылесосы", "productTypeId": 2, "img": "vacuumcleaner1.jpg"}
+    ],
+    "brands": [
+        {"id": 1, "name": "Direct"}
+    ],
+    "products": [{
+            "id": 1, 
+            "name": "IPhone 15", 
+            "price": 26999, 
+            "img": "iphone15.jpg", 
+            "description": "Екран (6.1, OLED (Super Retina XDR), 2556x1179) / Apple A17 Pro / основна потрійна камера: 48 Мп + 12 Мп + 12 Мп, фронтальна камера: 12 Мп / 128 ГБ вбудованої пам'яті / 3G / LTE / 5G / GPS / Nano-SIM / iOS 17", 
+            "rating": 5, 
+            "productTypeId": 1, 
+            "productCategoryId":1, 
+            "brandId": 1
+        },{
+            "id": 2, 
+            "name": "Samsung Galaxy S24",
+            "price": 19, 
+            "img": "samsungs24.jpg", 
+            "description": "Екран (6.7, Dynamic AMOLED 2X, 2340x1080) / Samsung Exynos 2400e (3.1 ГГц + 2.9 ГГц + 2.6 ГГц + 1.95 ГГц) / потрійна основна камера: 50 Мп + 12 Мп + 8 Мп, фронтальна: 10 Мп / RAM 8 ГБ / 256 ГБ вбудованої пам'яті / 3G / LTE / 5G / GPS / підтримка 2х SIM-карток (Nano-SIM, eSIM) / Android 14 / 4700 мА*год", 
+            "rating": 4.5, 
+            "productTypeId": 1, 
+            "productCategoryId":2, 
+            "brandId": 1
+        },{
+            "id": 3, 
+            "name": "Laptop1", 
+            "price": 15, 
+            "img": "laptop1.jpg", 
+            "description": "description", 
+            "rating": 3, 
+            "productTypeId": 2, 
+            "productCategoryId":3, 
+            "brandId": 1
+        },{
+            "id": 4, 
+            "name": "Laptop2", 
+            "price": 15, 
+            "img": "laptop2.jpg", 
+            "description": "description", 
+            "rating": 4, 
+            "productTypeId": 2,
+            "productCategoryId":3,  
+            "brandId": 1
+        },{
+            "id": 5, 
+            "name": "VacuumCleaner1", 
+            "price": 15, 
+            "img": "vacuumcleaner1.jpg", 
+            "description": "description", 
+            "rating": 0, 
+            "productTypeId": 3, 
+            "brandId": 1
+        },{
+            "id": 6, 
+            "name": "VacuumCleaner2", 
+            "price": 15, 
+            "img": "vacuumcleaner2.jpg", 
+            "description": "description", 
+            "rating": 0, 
+            "productTypeId": 3, 
+            "brandId": 1
+        },{
+            "id": 7, 
+            "name": "Air Conditioner", 
+            "price": 15, 
+            "img": "airсonditioner1.jpg", 
+            "description": "description",
+            "rating": 0, 
+            "productTypeId": 4, 
+            "brandId": 1
+        }]
 }

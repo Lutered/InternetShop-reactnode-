@@ -38,5 +38,35 @@
 }
 
 .navbuttons:hover{
-    background-color:  lightgray;
+    background-color: #4b5259; 
+}
+
+.navbrand{
+    color:white!important; 
+    margin:10px; 
+    font-family: Lucida; 
+    font-size: 20px;
+}
+
+.navBasket{
+    position: relative;
+    color: white
+}
+
+.navBasket:hover{
+    color: white
+}
+
+.navBasketCount{
+    background-color: green; 
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    font-size: 12px;
+    height: 18px;
+    width: 18px;
+    position: absolute;
+    top: 0;
+    right: 0;
 }

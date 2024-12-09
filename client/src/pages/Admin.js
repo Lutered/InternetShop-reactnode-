@@ -4,8 +4,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Sidebar from '../components/Sidebar';
 
-import Products from '../components/Admin/Products';
-import Types from '../components/Admin/Types';
+import Products from '../components/admin/Products';
+import Types from '../components/admin/Types';
 
 function Admin() {
     const [activeSBItem, setActiveSBItem] = useState(0);

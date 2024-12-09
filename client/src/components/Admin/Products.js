@@ -1,5 +1,5 @@
 import React from 'react';
-import Cards from '../Cards';
+import ProductCards from '../ProductCards';
 
 function Products() {
     const cards = [
@@ -9,7 +9,7 @@ function Products() {
 
     return (  
         <>
-            <Cards elements = {cards}></Cards>
+            <ProductCards elements = {cards}></ProductCards>
         </> 
     );
 }

@@ -1,6 +1,8 @@
 import React, {useContext} from 'react';
 import Pagination from 'react-bootstrap/Pagination';
 
+import '../styles/additionalComp.css';
+
 const getPaginationItems = (fromPage, toPage, breakpoint, onClickFn) => {
     let pageNumber = fromPage;
     let lastNumber = null;
@@ -9,9 +11,10 @@ const getPaginationItems = (fromPage, toPage, breakpoint, onClickFn) => {
     if(toPage < 1) toPage = 1;
 
     if(fromPage === toPage){
+        const loopPageNumber = pageNumber;
         items.push(
-            <Pagination.Item key={pageNumber} active={false} onClick={() => {if(onClickFn) onClickFn(pageNumber)}}>
-              {pageNumber}
+            <Pagination.Item key={loopPageNumber} active={false} onClick={() => {if(onClickFn) onClickFn(loopPageNumber)}}>
+              {loopPageNumber}
             </Pagination.Item>,
           );
         return items;
@@ -20,9 +23,10 @@ const getPaginationItems = (fromPage, toPage, breakpoint, onClickFn) => {
     const increasePages = (toPage - fromPage) > 0;
     
     for(let i = 0; i <= Math.abs(toPage - fromPage); i++){
+        const loopPageNumber = pageNumber;
         items.push(
-            <Pagination.Item key={pageNumber} active={false} onClick={() => {if(onClickFn) onClickFn(pageNumber)}}>
-              {pageNumber}
+            <Pagination.Item key={loopPageNumber} active={false} onClick={() => {if(onClickFn) onClickFn(loopPageNumber)}}>
+              {loopPageNumber}
             </Pagination.Item>,
           );
 
@@ -79,7 +83,7 @@ const PaginationPanel = ({currentPage, numberOfPages, onClickFn}) => {
         items.push(getPaginationItems(currentPage + 1, currentPage + numberIndent, numberOfPages, onClickFn));
 
     return ( 
-        <Pagination style={{margin: 'auto'}}>
+        <Pagination className='paggination-center'>
             {items}
         </Pagination> 
     );

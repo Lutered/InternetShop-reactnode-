@@ -1,6 +1,8 @@
+.content {
+  margin-left: 160px; /* Same as the width of the sidebar */
+  padding: 0px 10px;
+}
 
-
-  .content {
-    margin-left: 160px; /* Same as the width of the sidebar */
-    padding: 0px 10px;
-  }
+.searchTitle{
+    margin: 15px 0;
+}

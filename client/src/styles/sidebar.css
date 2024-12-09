@@ -5,4 +5,8 @@
 .sidebarItem{
     border: none;
     cursor: pointer;
+    padding: 6px;
+    font-size: 14px;
+    margin: 6px 0;
+    padding: 0;
 }
