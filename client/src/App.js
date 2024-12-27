@@ -2,8 +2,8 @@ import {BrowserRouter} from "react-router-dom";
 
 import Cookies from 'js-cookie';
 
-import AppRouter from "./components/AppRouter";
-import NavBar from "./components/NavBar";
+import AppRouter from "./app/router/AppRouter";
+import NavBar from "./app/components/NavBar/NavBar";
 
 import './App.css';
 

@@ -1,0 +1,20 @@
+.typeCard{
+    width: 200px; 
+    float: left; 
+    margin: 5px;
+    padding: 5px;
+    height: 290px;
+    cursor: pointer;
+}
+
+.typeCard .card-img-wrapper{
+    height: 200px; 
+    /* width: 100%;  */
+    position: relative;
+    text-align: center;
+}
+
+.typeCard .card-img-top{
+    height: 200px;
+    width: auto;
+}
