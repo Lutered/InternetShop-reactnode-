@@ -13,6 +13,7 @@ const Product = sequelize.define('product', {
 const ProductType = sequelize.define('product_type', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
+    //icon: {type: DataTypes.STRING, unique: true, allowNull: false},
     order: {type: DataTypes.INTEGER}
 });
 

@@ -1,16 +1,26 @@
 {
     "types": [ 
-        {"id": 1, "name": "Смартфоны и електроника", "order":1 },
-        {"id": 2, "name": "Ноутбуки и компьютеры", "order":2 },
-        {"id": 3, "name": "Бытовая техника", "img":"vacuumcleaner1.jpg", "order":3 },
-        {"id": 4, "name": "Кондиционеры", "img":"airсonditioner1.jpg", "order":4 } 
+        {"id": 2, "name": "Смартфоны", "icon": "cellphone.svg"},
+        {"id": 1, "name": "Ноутбуки и пк", "icon": "laptop.svg"},
+        {"id": 3, "name": "Телевизоры и мониторы", "icon": "tv.svg"},
+        {"id": 9, "name": "Игровые консоли", "icon": "console-game.svg"},
+        {"id": 4, "name": "Бытовая техника", "icon": "dishwasher.svg"},
+        {"id": 5, "name": "Кондиционеры", "icon": "air-conditioner.svg"},
+        {"id": 6, "name": "Аксессуары", "icon": "airpods-alt.svg"},
+        {"id": 7, "name": "Комплектующие", "icon": "video-card.svg"},
+        {"id": 8, "name": "Другая електроника"}
     ],
     "categories":[
-        {"id": 1, "name": "Айфоны", "productTypeId":1, "img": "iphone15.jpg"},
-        {"id": 2, "name": "Андроиды", "productTypeId":1, "img": "samsungs24.jpg"},
-        {"id": 3, "name": "Ноутбуки", "productTypeId": 2, "img": "laptop1.jpg"},
-        {"id": 4, "name": "ПК", "productTypeId": 2, "img": "laptop1.jpg"},
-        {"id": 5, "name": "Пылесосы", "productTypeId": 2, "img": "vacuumcleaner1.jpg"}
+        {"id": 1, "name": "Айфоны", "productTypeId":2, "img": "iphone15.jpg"},
+        {"id": 2, "name": "Смартфоны Samsung", "productTypeId":2, "img": "samsungs24.jpg"},
+        {"id": 3, "name": "Смартфоны Xiaomi", "productTypeId":2, "img": "samsungs24.jpg"},
+        {"id": 4, "name": "Смартфоны Poco", "productTypeId":2, "img": "samsungs24.jpg"},
+        {"id": 5, "name": "Игровые ноутбуки", "productTypeId": 1, "img": "laptop1.jpg"},
+        {"id": 6, "name": "Ноутбуки для работы", "productTypeId": 1, "img": "laptop1.jpg"},
+        {"id": 7, "name": "Игровые ПК", "productTypeId": 1, "img": "laptop1.jpg"},
+        {"id": 8, "name": "Офисные ПК", "productTypeId": 1, "img": "laptop1.jpg"},
+        {"id": 9, "name": "Моноблоки", "productTypeId": 1, "img": "laptop1.jpg"},
+        {"id": 10, "name": "Пылесосы", "productTypeId": 2, "img": "vacuumcleaner1.jpg"}
     ],
     "brands": [
         {"id": 1, "name": "Direct"}
@@ -62,7 +72,7 @@
             "img": "vacuumcleaner1.jpg", 
             "description": "description", 
             "rating": 0, 
-            "productTypeId": 3, 
+            "productTypeId": 4, 
             "brandId": 1
         },{
             "id": 6, 
@@ -71,7 +81,7 @@
             "img": "vacuumcleaner2.jpg", 
             "description": "description", 
             "rating": 0, 
-            "productTypeId": 3, 
+            "productTypeId": 4, 
             "brandId": 1
         },{
             "id": 7, 

@@ -37,10 +37,10 @@ module.exports = async (models) => {
         if(productTypeCount === 0){
             for(let type of initDatabaseData.types){
                 await models.ProductType.create({
-                    ...type //,
-                    //order: order
+                    ...type ,
+                    order: order
                 });
-                //order++;
+                order++;
             }
         }
 

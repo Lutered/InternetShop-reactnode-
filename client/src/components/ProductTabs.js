@@ -1,7 +1,10 @@
 import React from 'react';
 
 function ProductTabs() {
-    return ( <></> );
+    return ( 
+        <>
+        </> 
+    );
 }
 
 export default ProductTabs;
