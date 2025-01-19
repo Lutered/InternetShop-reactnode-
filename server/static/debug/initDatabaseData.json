@@ -11,18 +11,22 @@
         {"id": 8, "name": "Другая електроника"}
     ],
     "categories":[
-        {"id": 1, "name": "Айфоны", "productTypeId":2, "img": "iphone15.jpg"},
-        {"id": 2, "name": "Смартфоны Samsung", "productTypeId":2, "img": "samsungs24.jpg"},
-        {"id": 3, "name": "Смартфоны Xiaomi", "productTypeId":2, "img": "samsungs24.jpg"},
-        {"id": 4, "name": "Смартфоны Poco", "productTypeId":2, "img": "samsungs24.jpg"},
-        {"id": 5, "name": "Игровые ноутбуки", "productTypeId": 1, "img": "laptop1.jpg"},
-        {"id": 6, "name": "Ноутбуки для работы", "productTypeId": 1, "img": "laptop1.jpg"},
-        {"id": 7, "name": "Игровые ПК", "productTypeId": 1, "img": "laptop1.jpg"},
-        {"id": 8, "name": "Офисные ПК", "productTypeId": 1, "img": "laptop1.jpg"},
-        {"id": 9, "name": "Моноблоки", "productTypeId": 1, "img": "laptop1.jpg"},
-        {"id": 10, "name": "Пылесосы", "productTypeId": 2, "img": "vacuumcleaner1.jpg"}
+        {"id": 1, "name": "Айфоны", "productTypeId":2, "img": "iphone_category.jpg"},
+        {"id": 2, "name": "Смартфоны Samsung", "productTypeId":2, "img": "samsungs_phone_category.jpg"},
+        {"id": 3, "name": "Смартфоны Xiaomi", "productTypeId":2, "img": "xiaomi_phone_category.jpg"},
+        {"id": 4, "name": "Смартфоны Poco", "productTypeId":2, "img": "poco_phone_category.jpg"},
+        {"id": 5, "name": "Игровые ноутбуки", "productTypeId": 1, "img": "laptop_category.jpg"},
+        {"id": 6, "name": "Ноутбуки для работы", "productTypeId": 1, "img": "laptop_category.jpg"},
+        {"id": 7, "name": "Игровые ПК", "productTypeId": 1, "img": "pc_category.jpg"},
+        {"id": 8, "name": "Офисные ПК", "productTypeId": 1, "img": "pc_category.jpg"},
+        {"id": 9, "name": "Моноблоки", "productTypeId": 1, "img": "pc_category.jpg"},
+        {"id": 10, "name": "Пылесосы", "productTypeId": 4, "img": "vacuumcleaner_category.jpg"},
+        {"id": 11, "name": "Кондиционеры", "productTypeId": 5, "img": "airсonditioner_category.jpg"}
     ],
     "brands": [
+        {"id": 1, "name": "Direct"}
+    ],
+    "salers": [
         {"id": 1, "name": "Direct"}
     ],
     "products": [{
@@ -32,65 +36,78 @@
             "img": "iphone15.jpg", 
             "description": "Екран (6.1, OLED (Super Retina XDR), 2556x1179) / Apple A17 Pro / основна потрійна камера: 48 Мп + 12 Мп + 12 Мп, фронтальна камера: 12 Мп / 128 ГБ вбудованої пам'яті / 3G / LTE / 5G / GPS / Nano-SIM / iOS 17", 
             "rating": 5, 
-            "productTypeId": 1, 
+            "productTypeId": 2, 
             "productCategoryId":1, 
-            "brandId": 1
+            "brandId": 1,
+            "salerId": 1,
+            "productCharacteristic": "[{\"Label\":\"Test\", \"isTitle\":true},{\"Label\":\"Серия\", \"isTitle\":false, \"Value\":\"Тест\"}]"
         },{
             "id": 2, 
             "name": "Samsung Galaxy S24",
-            "price": 19, 
+            "price": 22500, 
             "img": "samsungs24.jpg", 
             "description": "Екран (6.7, Dynamic AMOLED 2X, 2340x1080) / Samsung Exynos 2400e (3.1 ГГц + 2.9 ГГц + 2.6 ГГц + 1.95 ГГц) / потрійна основна камера: 50 Мп + 12 Мп + 8 Мп, фронтальна: 10 Мп / RAM 8 ГБ / 256 ГБ вбудованої пам'яті / 3G / LTE / 5G / GPS / підтримка 2х SIM-карток (Nano-SIM, eSIM) / Android 14 / 4700 мА*год", 
             "rating": 4.5, 
-            "productTypeId": 1, 
+            "productTypeId": 2, 
             "productCategoryId":2, 
-            "brandId": 1
+            "brandId": 1,
+            "salerId": 1,
+            "productCharacteristic": "[{\"Label\":\"Серия\", \"isTitle\":true},{\"Label\":\"Серия\", \"isTitle\":false, \"Value\":\"Galaxy\"}, {\"Label\":\"Дисплей\", \"isTitle\":true}, {\"Label\":\"Диагональ екрана\", \"isTitle\":false, \"Value\":\"6.9\"}, {\"Label\":\"Тип матрицы\", \"isTitle\":false, \"Value\":\"OLED\"} ]"
+
         },{
             "id": 3, 
-            "name": "Laptop1", 
-            "price": 15, 
+            "name": "Ноутбук Acer Aspire 7 A715-76G-560W", 
+            "price": 26000, 
             "img": "laptop1.jpg", 
-            "description": "description", 
-            "rating": 3, 
-            "productTypeId": 2, 
-            "productCategoryId":3, 
-            "brandId": 1
+            "description": "IPS Full HD / Intel Core i5-12450H / RAM 16 ГБ / SSD 512 ГБ / nVidia GeForce RTX 3050, 4 ГБ ", 
+            "rating": 3.5, 
+            "productTypeId": 1, 
+            "productCategoryId":5, 
+            "brandId": 1,
+            "salerId": 1
         },{
             "id": 4, 
-            "name": "Laptop2", 
+            "name": "Ноутбук HP Laptop 15s-fq5000ua", 
             "price": 15, 
             "img": "laptop2.jpg", 
-            "description": "description", 
+            "description": "Intel Core i3-1215U / RAM 16 ГБ / SSD 512 ГБ", 
             "rating": 4, 
-            "productTypeId": 2,
-            "productCategoryId":3,  
-            "brandId": 1
+            "productTypeId": 1,
+            "productCategoryId":6,  
+            "brandId": 1,
+            "salerId": 1
         },{
             "id": 5, 
-            "name": "VacuumCleaner1", 
-            "price": 15, 
+            "name": "Philips 5000 Series XC5141", 
+            "price": 15600, 
             "img": "vacuumcleaner1.jpg", 
-            "description": "description", 
-            "rating": 0, 
+            "description": "Комбінована щітка, щілинна насадка та міні-насадка з турбощіткою 3-ступенева система фільтрації надійно утримує всмоктаний пил Цифровий двигун для довговічності Модуль Aqua дозволяє пилососити та мити підлогу одним рухом", 
+            "rating": 3.2, 
             "productTypeId": 4, 
-            "brandId": 1
+            "productCategoryId":10, 
+            "brandId": 1,
+            "salerId": 1
         },{
             "id": 6, 
-            "name": "VacuumCleaner2", 
-            "price": 15, 
+            "name": "Dyson V15s Detect Submarine", 
+            "price": 7800, 
             "img": "vacuumcleaner2.jpg", 
-            "description": "description", 
-            "rating": 0, 
-            "productTypeId": 4, 
-            "brandId": 1
+            "description": "", 
+            "rating": 2, 
+            "productTypeId": 5, 
+            "productCategoryId":10, 
+            "brandId": 1,
+            "salerId": 1
         },{
             "id": 7, 
-            "name": "Air Conditioner", 
-            "price": 15, 
+            "name": "ARDESTO ARD-E09-R32", 
+            "price": 9800, 
             "img": "airсonditioner1.jpg", 
-            "description": "description",
-            "rating": 0, 
-            "productTypeId": 4, 
-            "brandId": 1
+            "description": "Зовнішній блок / Внутрішній блок з кронштейном / Пульт ДК",
+            "rating": 2.7, 
+            "productTypeId": 5, 
+            "productCategoryId":11, 
+            "brandId": 1,
+            "salerId": 1
         }]
 }

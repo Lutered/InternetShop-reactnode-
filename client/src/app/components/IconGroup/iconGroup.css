@@ -1,0 +1,34 @@
+.iconGroup {
+    padding-top: 10px;
+}
+
+.iconGroupItem{
+    display: inline-flex;
+    align-items: center;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    font-size: 14px;
+    /* margin: 6px 0; */
+    padding: 8px;
+    color: rgb(93, 92, 92);
+    font-family: math, sans-serif;
+}
+
+.iconGroupItem:hover{
+    color: rgb(32, 32, 178);
+    background-color: rgb(247, 247, 247);
+    border-radius: 4px;
+}
+
+.iconGroupIconWrapper{
+    width: 14px;
+    margin: 0 10px 0 0;
+    display: flex;
+    align-items: center;
+}
+
+.iconGroupIcon{
+    width: 100%;
+    height: 100%;
+}

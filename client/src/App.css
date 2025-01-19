@@ -1,3 +1,14 @@
-.maincontainer {
-    max-width: 95%  
+.main-container {
+    margin: auto;
+    max-width: 95%;
+}
+
+.main-content-container{
+    padding: 15px;
+    flex: 1;
+}
+
+.main-sidebar-container{
+    width: 250px;
+    min-width: 250px;
 }

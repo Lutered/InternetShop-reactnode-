@@ -1,20 +1,22 @@
-.typeCard{
-    width: 200px; 
+.categoryCard{
+    width: 250px; 
     float: left; 
-    margin: 5px;
+    margin: 5px 10px 5px 0;
     padding: 5px;
-    height: 290px;
+    height: 180px;
     cursor: pointer;
+    text-align: center;
 }
 
-.typeCard .card-img-wrapper{
-    height: 200px; 
+.categoryCard .card-img-wrapper{
+    margin: 4px 0 0 0;
+    height: 120px; 
     /* width: 100%;  */
     position: relative;
     text-align: center;
 }
 
-.typeCard .card-img-top{
-    height: 200px;
+.categoryCard .card-img-top{
+    height: 120px;
     width: auto;
 }

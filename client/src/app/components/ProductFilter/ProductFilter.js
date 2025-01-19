@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 
-import './sidebar.css';
 
-const Sidebar = ({children}) => {
+const ProductFilter = ({children}) => {
     return (
         <div className='sidebar'>
             {children}
@@ -10,4 +9,4 @@ const Sidebar = ({children}) => {
     );
 }
 
-export default Sidebar;
+export default ProductFilter;

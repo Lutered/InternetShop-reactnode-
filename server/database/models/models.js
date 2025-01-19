@@ -7,13 +7,14 @@ const Product = sequelize.define('product', {
     price: {type: DataTypes.DECIMAL, allowNull: false},
     img: {type: DataTypes.STRING, allowNull: true},
     description: {type: DataTypes.TEXT},
-    rating: {type: DataTypes.DOUBLE, defaultValue: 0}
+    rating: {type: DataTypes.DOUBLE, defaultValue: 0},
+    productCharacteristic: {type: DataTypes.TEXT}
 });
 
 const ProductType = sequelize.define('product_type', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
-    //icon: {type: DataTypes.STRING, unique: true, allowNull: false},
+    icon: {type: DataTypes.STRING, unique: false, allowNull: true},
     order: {type: DataTypes.INTEGER}
 });
 
@@ -63,6 +64,13 @@ const TypeBrand = sequelize.define('type_brand', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
 });
 
+// const ProductCharacteristic = sequelize.define('product_characterisic', {
+//     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+//     label: {type: DataTypes.TEXT},
+//     value: {type: DataTypes.TEXT},
+//     isTitle: {type: DataTypes.BOOLEAN},
+//     order: {type: DataTypes.INTEGER}
+// });
 
 User.hasOne(Basket);
 Basket.belongsTo(User);
@@ -94,6 +102,11 @@ BasketProduct.belongsTo(Product);
 ProductType.belongsToMany(Brand, {through: TypeBrand });
 Brand.belongsToMany(ProductType, {through: TypeBrand });
 
+// Product.hasMany(ProductCharacteristic);
+// ProductCharacteristic.belongsTo(Product);
+
+// ProductCharacteristic.belongsTo(ProductCharacteristic, { foreignKey: 'parentNodeId' }); 
+
 module.exports = {
     Product,
     ProductType,
@@ -103,5 +116,6 @@ module.exports = {
     Comment, 
     User,
     Basket,
-    BasketProduct
+    BasketProduct,
+   // ProductCharacteristic
 }

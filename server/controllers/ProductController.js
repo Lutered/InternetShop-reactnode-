@@ -22,7 +22,7 @@ class ProductController{
     }
 
     async searchProducts(req, res) {
-        let {brandId, categoryId, searchValue, limit, page} = req.query
+        let {brandId, categoryId, search, limit, page} = req.query
         page = page || 1;
         limit = limit || 9;
         const offset = page * limit - limit;
@@ -34,11 +34,11 @@ class ProductController{
         if(categoryId){
             where = {...where, productCategoryId: categoryId};
         }
-        if(searchValue){
+        if(search){
             where = {
                 ...where,
                 name: {
-                    [Sequelize.Op.iLike]: `%${searchValue}%`,
+                    [Sequelize.Op.iLike]: `%${search}%`,
                 } 
             };
         }
@@ -54,7 +54,13 @@ class ProductController{
         if(!id)
             return res.status(400).send('Id parameter cannot be empty')
 
-        let product = await Product.findOne({where: {id}});
+        let product = await Product.findOne({
+            include: [{
+                association: 'saler',
+                attributes: ['id', 'name', 'rating']
+            }],
+            where: {id}
+        });
 
         return res.json(product);
     }
@@ -124,19 +130,19 @@ class ProductController{
     async getCategories(req, res) {
         let {limit, page, typeId, orderBy} = req.query;
         page = page || 1;
-        limit = limit || 4;
+        limit = limit || 10;
         const offset = page * limit - limit;
         let where = {};
 
         if(typeId) where = {...where, productTypeId: typeId};
 
+        orderBy = orderBy ?? [['popularity', 'DESC']]
+        
         let types = await ProductCategory.findAndCountAll({
             limit, 
             offset,
             where,
-            order: [
-                ['popularity', 'DESC'],
-            ]
+            order: orderBy
         });
 
         return res.json(types);

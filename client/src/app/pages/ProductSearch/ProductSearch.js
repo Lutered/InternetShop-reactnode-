@@ -1,25 +1,24 @@
 import {useState, useEffect} from 'react';
 import { useSearchParams, useNavigate, useLocation } from 'react-router-dom';
 
-import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 
 import ProductCards from '../../components/ProductCards/ProductCards';
 import PaginationPanel from '../../components/Paggination/Pagination';
 import Sidebar from '../../components/Sidebar/Sidebar';
 
-import BasketService from '../../../services/Basket/BasketService';
+import globalServices from '../../../services/globalServices';
 
-import { fetchProductTypes, searchProducts, fetchCategoryById } from '../../../services/http/API/ProductApi';
+import { searchProducts, fetchCategoryById } from '../../../services/http/API/ProductApi';
 
-import '../page.css';
+import './productSearch.css';
 
 const ProductSearch = () => {
+    const basketService = globalServices.getBasketServices();
+
     const pageLimit = 9;
 
     const [cardsArray, setCards] = useState([]);
-    //const [currentPage, setPage] = useState(1);
     const [numberOfPages, setTotalPages] = useState(1);
     const [searchTitle, setSearchTitle] = useState();
 
@@ -27,27 +26,18 @@ const ProductSearch = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const categoryId = searchParams.get('categoryId');
-    const brandId = searchParams.get('brandId');
-    const searchValue = searchParams.get('search');
     const currentPage = searchParams.get('page') ? Number(searchParams.get('page')) : 1;
 
     const openCardFn = (id) => {
         navigate(`/product?id=${id}`);
     };
 
-    const basketClickFn = (id) => {
-        BasketService.addProductToBasket(id, {showBasketWnd: true});
+    const addToBasketClickFn = (id) => {
+        basketService.addProductToBasket(id, {showBasketWnd: true});
     };
 
-    const getPageProducts = (page) => {
-        const searchParams = {
-            categoryId,
-            brandId,
-            searchValue
-        }; 
-
-        searchProducts(page, pageLimit, searchParams).then(data => {
+    const getPageProducts = (page, params) => {
+        searchProducts(page, pageLimit, params).then(data => {
             const array = data.rows.map(val => {
                 return {
                     id: val.id,
@@ -55,7 +45,7 @@ const ProductSearch = () => {
                     text: val.description,
                     rating: val.rating,
                     price: val.price,
-                    img: process.env.REACT_APP_IMAGES_FOLDER_URL + val.img
+                    img: process.env.REACT_APP_IMAGES_PRODUCTS_FOLDER_URL + val.img
                 };
             });
             setCards(array);
@@ -75,48 +65,59 @@ const ProductSearch = () => {
     };
 
     useEffect(() => {
-        getPageProducts(currentPage);
+        const categoryId = searchParams.get('categoryId');
+        const brandId = searchParams.get('brandId');
+        const search = searchParams.get('search');
+
+        getPageProducts(currentPage, {
+            categoryId,
+            brandId,
+            search
+        });
 
         if(categoryId){
             fetchCategoryById(categoryId).then(data => {
                 setSearchTitle(data.name);
             });
+        }else if(search){
+            setSearchTitle(`Результаты поиска "${search}"`);
+        }else{
+            setSearchTitle('Поиск');
         }
     }, [searchParams]);
 
     return (
-       <Container className='maincontainer' >
-            <Row>
-                <Col xs={3}> 
-                    {/* <Sidebar sidebarArray={sidebarItemsArray}/> */}
-                </Col>
-                <Col  xs={9}>
-                    <Container>
-                        {
-                            searchTitle ? 
+        <div className='main-container'>
+            <div className='productSearch-title'>
+                {
+                    searchTitle ? 
+                    <h2 className='searchTitle'>{searchTitle}</h2>
+                    : null
+                }
+            </div>
+            <div className='d-flex flex-row productSearch-container'>
+                <div className='main-sidebar-container'>
+                    <Sidebar>
+                       
+                    </Sidebar>
+                </div>
+                <div className='main-content-container'> 
+                    
+                    <ProductCards elements = {cardsArray} cardClickFn={openCardFn} basketClickFn={addToBasketClickFn} > </ProductCards>
+                    {
+                        numberOfPages > 1 ? 
                             <Row>
-                                <h2 className='searchTitle'>{searchTitle}</h2>
+                                <PaginationPanel 
+                                    currentPage={currentPage} 
+                                    numberOfPages={numberOfPages} 
+                                    onClickFn={paginationClickFn}>
+                                </PaginationPanel>
                             </Row>
                             : null
-                        }
-                        <Row>
-                            <ProductCards elements = {cardsArray} cardClickFn={openCardFn} basketClickFn={basketClickFn} > </ProductCards>
-                        </Row>
-                        {
-                            numberOfPages > 1 ? 
-                                <Row>
-                                    <PaginationPanel 
-                                        currentPage={currentPage} 
-                                        numberOfPages={numberOfPages} 
-                                        onClickFn={paginationClickFn}>
-                                    </PaginationPanel>
-                                </Row>
-                                : null
-                        }
-                    </Container>
-                </Col>
-            </Row>
-       </Container>
+                    }
+                </div>
+            </div>
+        </div>
     )
 }
 

@@ -1,18 +1,16 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { useNavigate, useSearchParams, useLocation  } from 'react-router-dom';
 
 import Navbar from "react-bootstrap/Navbar";
 import Button from 'react-bootstrap/Button';
-import { List, Cart3, Person, X } from 'react-bootstrap-icons';
+import { List, Cart3, Person} from 'react-bootstrap-icons';
 
 import { observer } from "mobx-react-lite";
 
 import BasketModal from '../../modals/BasketModal/BasketModal';
 
-import BasketService from '../../../services/Basket/BasketService';
-
 import { HOME_ROUTE, SEARCH_ROUTE } from '../../router/routeConsts';
-import globalStores from '../../../dataStore/globalStores';
+import globalServices from '../../../services/globalServices';
 
 import './navbar.css';
 
@@ -21,13 +19,12 @@ const buttonsSize = 28;
 const NavBar = observer(() => {
     const navigate = useNavigate();
 
-    const basketStore = globalStores.getBasketStore();
+    const basketService = globalServices.getBasketServices();
 
     const [searchParams] = useSearchParams();
     const urlSearchValue = searchParams.get('search');
 
     const [searchValue, setSearchValue] = useState('');
-    const [showBasket, setShowBasket] = useState(false);
 
     let location = useLocation();
 
@@ -52,12 +49,11 @@ const NavBar = observer(() => {
         if(location.pathname === SEARCH_ROUTE)
             setSearchValue(urlSearchValue ?? '');
 
-        BasketService.updateBasketItemsCount();
     }, [urlSearchValue, location]);
 
     return (
         <Navbar bg="dark" className="bg-body-tertiary "> 
-                <BasketModal />
+                {/* <BasketModal /> */}
 
                 <Button variant="outline-light" className='navbuttons'>
                     <List color="white" size={30}/>
@@ -83,11 +79,11 @@ const NavBar = observer(() => {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
                 <div className='navbuttonssection'>
-                    <Button variant="outline-light" className='navbuttons navBasket' onClick={BasketService.showBasketWnd}>
+                    <Button variant="outline-light" className='navbuttons navBasket' onClick={() => {basketService.showBasketWnd()}}>
                         <Cart3 color="white" size={buttonsSize}/> 
                         {
-                            basketStore.basketCount > 0 ? 
-                            <div className='navBasketCount'>{basketStore.basketCount}</div> 
+                            basketService.getBasketCount() > 0 ? 
+                            <div className='navBasketCount'>{basketService.getBasketCount()}</div> 
                             : null
                         }
                         

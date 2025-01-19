@@ -10,9 +10,8 @@ import { observer } from 'mobx-react-lite';
 import { Trash3 } from 'react-bootstrap-icons';
 
 import CurrencyIcons from "../../additionalComponents/CurrencyIcons";
-import BasketService from '../../../services/Basket/BasketService';
 
-import globalStores from '../../../dataStore/globalStores';
+import globalService from '../../../services/globalServices';
 
 import './basketModal.css';
 
@@ -21,29 +20,29 @@ const BasketModal = observer(({ onHide }) => {
     const quantityBtnSize = 30;
     const quantityBtnClass = 'basketItem-quantity-buttons';
 
-    const basketStore = globalStores.getBasketStore();
+    const basketService = globalService.getBasketServices();
 
     const closeFn = () =>{
-        BasketService.hideBasketWnd();
+        basketService.hideBasketWnd();
 
         onHide && onHide();
     };
 
     const onChangeQuantity = (id, count) => { 
-        basketStore.updateBasketItem(id, {count});
+        basketService.updateBasketItem(id, {count});
     };
 
     const saveQuantity = (id, count) => {
-        const basketItem = basketStore.basketList.find(item => item.id == id);
+        const basketItem = basketService.getBasketList().find(item => item.id == id);
 
         if(!basketItem) throw 'Basket Item was not found';
 
         if(count != basketItem.serverCount)
-            BasketService.changeItemCount(id, count);
+            basketService.changeItemCount(id, count);
     };
 
     const removeItem = (id) => {
-        BasketService.removeProductFromBasket(id, {updateItems: true});
+        basketService.removeProductFromBasket(id, {updateItems: true});
     }
 
     const getSumPrice = (price, count) => {
@@ -51,12 +50,12 @@ const BasketModal = observer(({ onHide }) => {
     };
 
     return (  
-        <Modal className="basket" show={basketStore.getShowBasket()} onHide={closeFn}>
+        <Modal className="basket" show={basketService.isBasketShowed()} onHide={closeFn}>
             <Modal.Header closeButton>
                 <Modal.Title>Корзина</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                {basketStore.basketList.map((val, index) => 
+                {basketService.getBasketList().map((val, index) => 
                     <div key={index} className='basketItem'>
                         <div className='basketItem-body'>
                             <div>
@@ -105,9 +104,9 @@ const BasketModal = observer(({ onHide }) => {
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="success" 
-                    onClick={() => {
-                        basketStore.addItem('Test1');
-                    }}
+                    // onClick={() => {
+                    //     basketStore.addItem('Test1');
+                    // }}
                 >
                     Оформить заказ
                 </Button>

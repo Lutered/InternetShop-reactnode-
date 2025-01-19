@@ -8,8 +8,6 @@ import Col from 'react-bootstrap/esm/Col';
 import CategoryCards from '../../components/CategoryCards/CategoryCards';
 import { fetchCategories, fetchProductTypeById } from '../../../services/http/API/ProductApi';
 
-import '../page.css';
-
 function TypeDetail() {
     const [categoriesArray, setCategoriesArray] = useState([]);
     const [title, setTile] = useState('');
@@ -33,7 +31,7 @@ function TypeDetail() {
                 return {
                     id: val.id,
                     Title: val.name,
-                    Img: val.img ? (process.env.REACT_APP_API_URL + '/photos/' + val.img) : null
+                    Img: val.img ? (process.env.REACT_APP_IMAGES_PREVIEW_FOLDER_URL + val.img) : null,
                 };
             });
             setCategoriesArray(array);
@@ -41,7 +39,7 @@ function TypeDetail() {
     }, [typeId]);
 
     return ( 
-        <Container className='maincontainer'>
+        <Container className='main-container'>
             <Row>
                 <Col>
                     <div style={{margin: '40px 100px'}}>

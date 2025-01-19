@@ -1,38 +1,45 @@
 import { makeAutoObservable } from "mobx";
 
 export default class BasketStore {
-    basketList = [];
-    basketCount = 0;
+    _basketList = [];
+    _basketCount = 0;
 
-    isBasketHidden = true;
+    _isBasketHidden = true;
 
     constructor(){
         makeAutoObservable(this);
     }
 
-    setBasketList(_basketList){
-        this.basketList = _basketList;
-        this.basketCount = _basketList.reduce((sum, item) => sum + item?.count ?? 0, 0);
+    getBasketList(){
+        return this._basketList;
+    }
+    setBasketList(basketList){
+        this._basketList = basketList;
+        this._basketCount = basketList.reduce((sum, item) => sum + item?.count ?? 0, 0);
     }
 
+    getBasketCount(){
+        return this._basketCount;
+    }
     setBasketCount(count){
-        this.basketCount = count;
+        this._basketCount = count;
     }
 
     showBasket(){ 
-        this.isBasketHidden = false; 
+        this._isBasketHidden = false; 
     }
     hideBasket(){ 
-        this.isBasketHidden = true; 
+        this._isBasketHidden = true; 
     }
-    getShowBasket(){
-        return !this.isBasketHidden;
+
+    isBasketShowed(){
+        return !this._isBasketHidden;
     }
 
     updateBasketItem(id, data){
         if(!id) throw 'Item id cannot be empty';
 
-        let selectedItem = this.basketList.find(item => item.id == id);
+        let selectedItem = this._basketList.find(item => item.id == id);
 
         if(selectedItem === null)  throw 'Item was not found';
 
@@ -42,6 +49,6 @@ export default class BasketStore {
             selectedItem[key] = value;
         });
 
-        this.basketCount = this.basketList.reduce((sum, item) => sum + item?.count ?? 0, 0);
+        this._basketCount = this._basketList.reduce((sum, item) => sum + item?.count ?? 0, 0);
     }
 };

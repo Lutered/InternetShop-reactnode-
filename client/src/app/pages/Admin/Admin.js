@@ -14,7 +14,7 @@ function Admin() {
         { 
             text: "Типы", 
             action: () => {setActiveSBItem(0)}, 
-            el: (<Types />)
+            el: (<AdminTypes />)
         },
         { 
             text: "Бренды", 
@@ -37,7 +37,7 @@ function Admin() {
     ];
 
     return ( 
-        <Container className='maincontainer' >
+        <Container className='main-container' >
             <Row>
                 <Col xs={3}> 
                     <Sidebar sidebarArray={sidebarItemsArray}/>

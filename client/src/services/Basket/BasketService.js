@@ -11,21 +11,34 @@ import {
 import globalStores from '../../dataStore/globalStores';
 
 export default class BasketService{
-    static showBasketWnd(){
-        const basketStore = globalStores.getBasketStore();
+    _basketStore = null;
 
-        basketStore.showBasket();
-        BasketService.updateBasketItems();
+    constructor(){
+        this._basketStore = globalStores.getBasketStore();
+    }
+
+    showBasketWnd(){
+        this._basketStore.showBasket();
+        this.updateBasketItems();
     } 
 
-    static hideBasketWnd(){
-        const basketStore = globalStores.getBasketStore();
-
-        basketStore.hideBasket();
+    hideBasketWnd(){
+        this._basketStore.hideBasket();
     } 
 
-    static updateBasketItems(){
-        const basketStore = globalStores.getBasketStore();
+    isBasketShowed(){
+        return this._basketStore.isBasketShowed();
+    }
+
+    getBasketList(){
+        return this._basketStore.getBasketList();
+    }
+    getBasketCount(){
+        return this._basketStore.getBasketCount();
+    }
+
+    updateBasketItems(){
+        const basketStore = this._basketStore;
         const basketId = Cookies.get('basketId');
     
         if(!basketId){
@@ -43,15 +56,15 @@ export default class BasketService{
                     productId: val.product?.id,
                     name: val.product?.name,
                     price: val.product?.price,
-                    img: process.env.REACT_APP_IMAGES_FOLDER_URL + val.product?.img
+                    img: process.env.REACT_APP_IMAGES_PRODUCTS_FOLDER_URL + val.product?.img
                 });
             });
             basketStore.setBasketList(basketItems);
         });
     }
 
-    static updateBasketItemsCount(){
-        const basketStore = globalStores.getBasketStore();
+    updateBasketItemsCount(){
+        const basketStore = this._basketStore;
         const basketId = Cookies.get('basketId');
     
         if(!basketId){
@@ -67,45 +80,51 @@ export default class BasketService{
         });
     }
 
-    static addProductToBasket(productId, config){
+    addProductToBasket(productId, config){
         const basketId = Cookies.get('basketId');
     
-        if(!productId) throw 'Product Id cannot be empty';
+        if(!productId) throw  new Error('Product Id cannot be empty');
     
         return addBasketItem(basketId, productId).then(data => {
             if(!basketId) Cookies.set('basketId', data.basketId);
             
-            if(config.updateCount)
-                BasketService.updateBasketItemsCount();
+            if(config?.updateCount)
+                this.updateBasketItemsCount();
 
-            if(config.updateItems)
-                BasketService.updateBasketItems();
+            if(config?.updateItems)
+                this.updateBasketItems();
 
-            if(config.showBasketWnd)
-                BasketService.showBasketWnd();
+            if(config?.showBasketWnd)
+                this.showBasketWnd();
         });
     }
 
-    static removeProductFromBasket(id, config){
-        if(!id) throw 'Product Id cannot be empty';
+    removeProductFromBasket(id, config){
+        if(!id) throw  new Error('Product Id cannot be empty');
 
         return removeBasketItem(id).then(data => {
             if(config.updateCount)
-                BasketService.updateBasketItemsCount();
+                this.updateBasketItemsCount();
 
             if(config.updateItems)
-                BasketService.updateBasketItems();
+                this.updateBasketItems();
         });
     }
 
-    static changeItemCount(id, count){
-        const basketStore = globalStores.getBasketStore();
+    changeItemCount(id, count){
+        const basketStore = this._basketStore;
 
-        if(!id) throw 'Product Id cannot be empty';
+        if(!id) throw  new Error('Product Id cannot be empty');
 
         changeItemCount(id, count).then(data => {
             basketStore.updateBasketItem(id, {count, serverCount: count});
         });
+    }
+
+    updateBasketItem(id, data){
+        const basketStore = this._basketStore;
+
+        return basketStore.updateBasketItem(...arguments);
     }
 }
 

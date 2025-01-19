@@ -63,6 +63,14 @@ module.exports = async (models) => {
             }
         } 
 
+        const salerCount = await models.Saler.count();
+
+        if(salerCount === 0){
+            for(let saler of initDatabaseData.salers){
+                await models.Saler.create(saler);
+            }
+        }
+
         const productCount = await models.Product.count();
 
         if(productCount === 0){

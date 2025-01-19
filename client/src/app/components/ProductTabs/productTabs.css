@@ -1,0 +1,113 @@
+.productTabs{
+    margin-top: 15px;
+    border-bottom: 1px solid lightgray;
+}
+
+.productTabs-productImage{
+    height: auto; 
+    width: 100%; 
+    max-width: 450px; 
+    margin: 10px;
+}
+
+.productTabs .nav-link{
+    border: none;
+    color: rgb(42, 40, 40);
+    margin: 0 15px 0 0;
+}
+
+.productTabs .nav-link.active, 
+.productTabs .nav-link:hover{
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 3px solid rgb(51, 51, 184);
+    color: rgb(51, 51, 184);
+}
+
+.productTabs-rating{
+    margin: 0 10px 10px 10px;
+}
+
+.productTabs-description-container{
+    margin: 10px;
+    text-overflow: ellipsis;
+    overflow: hidden; 
+    /* white-space: nowrap; */
+}
+
+.productTabs-description{
+    display: -webkit-box;
+    line-clamp: 3;
+    -webkit-line-clamp: 3; /* Number of lines */
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    overflow: hidden; 
+    max-height: 100px;
+    /* white-space: nowrap; */
+}
+
+.productTabs-salerprice-container{
+    border: 1px solid lightgray;
+    max-height: 180px;
+    border-radius: 5px;
+    margin: 0 6px;
+    /* padding: 4px 14px; */
+}
+
+.productTabs-saler-container{
+    border-bottom: 1px solid lightgray;
+    font-size: 15px;
+    padding: 6px 14px;
+}
+
+.productTabs-saler-label{
+    color: gray;
+}
+
+.productTabs-saler-name{
+    margin-left: 6px;
+}
+
+.productTabs-price-container{
+    margin: 10px 15px;
+}
+
+.productTabs-price{
+    font-size: 26px;
+    font-family: 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
+    /* margin: 10px 10px; */
+} 
+
+.productTabs-price-buttons{
+    display: flex;
+    justify-content: center;
+    margin: 15px 0; 
+}
+
+.productTabs-characterestics-title{
+    font-size: 20px;
+}
+
+.productTabs-characterestics-listdtItem{
+    margin: 20px 0 20px 0;
+}
+
+.productTabs-characterestics-dtlabel{
+    width: 100%;
+}
+
+.productTabs-characterestics-ddLabel{
+    width: 40%;
+}
+.productTabs-characterestics-ddValue{
+    width: 60%;
+}
+
+.productTabs-characterestics-ddSplitter{
+    border-bottom: 1px solid lightgray;
+    flex: 1;
+    height: 16px;
+    vertical-align: middle;
+    margin: auto 10px;
+}
