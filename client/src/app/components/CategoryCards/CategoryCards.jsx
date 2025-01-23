@@ -9,11 +9,11 @@ const CategoryCards = ({elements, clickFn}) => {
             {elements.map((val, index) => 
               <Card className='categoryCard' key ={index} onClick={() => { clickFn && clickFn(val.id); }}>
                 <div className='card-img-wrapper'>
-                  <Card.Img variant="top" src={val.Img ?? ''}/>
+                  <Card.Img variant="top" src={val.imgUrl ?? ''}/>
                 </div>
                 <Card.Body>
-                  <Card.Title>{val.Title}</Card.Title>
-                  <Card.Text> {val.Text} </Card.Text>
+                  <Card.Title>{val.name}</Card.Title>
+                  <Card.Text> {val.text} </Card.Text>
                 </Card.Body>
              </Card>
             )}

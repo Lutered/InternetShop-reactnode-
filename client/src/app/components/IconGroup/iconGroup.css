@@ -2,7 +2,7 @@
     padding-top: 10px;
 }
 
-.iconGroupItem{
+.iconGroup-item{
     display: inline-flex;
     align-items: center;
     border: none;
@@ -15,20 +15,20 @@
     font-family: math, sans-serif;
 }
 
-.iconGroupItem:hover{
+.iconGroup-item:hover{
     color: rgb(32, 32, 178);
     background-color: rgb(247, 247, 247);
     border-radius: 4px;
 }
 
-.iconGroupIconWrapper{
+.iconGroup-iconWrapper{
     width: 14px;
     margin: 0 10px 0 0;
     display: flex;
     align-items: center;
 }
 
-.iconGroupIcon{
+.iconGroup-icon{
     width: 100%;
     height: 100%;
 }

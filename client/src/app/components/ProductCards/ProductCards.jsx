@@ -1,5 +1,3 @@
-import { useNavigate } from "react-router-dom";
-
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import { CartPlus, ChatDots } from 'react-bootstrap-icons';
@@ -21,14 +19,17 @@ function ProductCards ({elements, cardClickFn, basketClickFn}) {
             {elements.map((val, index) => 
               <Card className="productCard" key ={index} onClick={() => { cardClickFn && cardClickFn(val.id); }}>
                 <div className="card-img-wrapper">
-                  <Card.Img variant="top" src={val.img} />
+                  <Card.Img variant="top" src={val.imgUrl} />
                 </div>
+
                 <Card.Body>
-                  <Card.Title>{val.title}</Card.Title>
-                  <div style={{display: 'flex', alignItems: 'center'}}>
-                    <Rating rating={val.rating} style={{display: 'flex'}}></Rating>
-                    <ChatDots size={16} style={{marginLeft: '14px'}}/>
+                  <Card.Title>{val.name}</Card.Title>
+
+                  <div className='d-flex align-items-center'>
+                    <Rating rating={val.rating} className='d-flex'></Rating>
+                    <ChatDots size={16} className='ms-2'/>
                   </div>
+
                   <div className="price-container">
                     <p className="price">
                       {val.price}
@@ -36,11 +37,13 @@ function ProductCards ({elements, cardClickFn, basketClickFn}) {
                         <CurrencyIcons size={20}/>
                       </span>
                     </p>
+                    
                     <Button variant="outline-light" onClick={(e) => { onAddProduct(e, val.id); } }>
                       <CartPlus color="green" size={22}/>
                     </Button>
                   </div>    
                 </Card.Body>
+
              </Card>
             )}
         </div>

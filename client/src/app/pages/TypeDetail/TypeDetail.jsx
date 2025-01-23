@@ -6,35 +6,33 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/esm/Col';
 
 import CategoryCards from '../../components/CategoryCards/CategoryCards';
-import { fetchCategories, fetchProductTypeById } from '../../../services/http/API/ProductApi';
+
+import globalServices from '../../../services/globalServices';
 
 function TypeDetail() {
+    //#region variables
+    const productService = globalServices.getProductService();
+
     const [categoriesArray, setCategoriesArray] = useState([]);
-    const [title, setTile] = useState('');
+    const [title, setTitle] = useState('');
 
     const [searchParams, setSearchParams] = useSearchParams();
     const navigate = useNavigate();
 
     const typeId = searchParams.get('id');
+    //#endregion
 
     const openCategoryFn = (id) => {
         navigate(`/search?categoryId=${id}`);
     };
 
     useEffect(() => {
-        fetchProductTypeById(typeId).then(data => {
-            setTile(data.name);
+        productService.getProductTypeById(typeId).then(type => {
+            setTitle(type.name);
         });
 
-        fetchCategories(1, 20, {typeId}).then(data => {
-            const array = data.rows.map(val => {
-                return {
-                    id: val.id,
-                    Title: val.name,
-                    Img: val.img ? (process.env.REACT_APP_IMAGES_PREVIEW_FOLDER_URL + val.img) : null,
-                };
-            });
-            setCategoriesArray(array);
+        productService.getCategoriesAsync(1, 20, {typeId}).then(categories => {
+            setCategoriesArray(categories);
         });
     }, [typeId]);
 

@@ -33,7 +33,7 @@ function ProductTabs({product}) {
                 <Container className='m-0'>
                     <Row>
                         <Col xs={5}> 
-                            <img src={product.imgURL} className='productTabs-productImage'></img>
+                            <img src={product.imgUrl} className='productTabs-productImage'></img>
                         </Col>
                         <Col xs={7}> 
                             <div >
@@ -74,11 +74,11 @@ function ProductTabs({product}) {
                 <dl className='productTabs-characterestics-list'>
                     {characteristics.map((val, index) => 
                         val.isTitle ? 
-                        <dt className='d-flex productTabs-characterestics-listdtItem'>
+                        <dt key={index} className='d-flex productTabs-characterestics-listdtItem'>
                             <span className='productTabs-characterestics-dtlabel'>{val.Label}</span>
                         </dt>  
                         :
-                        <dd className='d-flex'>
+                        <dd key={index} className='d-flex'>
                           <div className='productTabs-characterestics-ddLabel d-flex'>
                             <span>{val.Label}</span>
                             <div className='productTabs-characterestics-ddSplitter'></div>

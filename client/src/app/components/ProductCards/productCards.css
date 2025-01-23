@@ -22,6 +22,16 @@
     height: auto
 }
 
+.productCard .card-title{
+    display: -webkit-box;
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    overflow: hidden; 
+    height: 50px; 
+}
+
 .productCard .card-body{
     height: 200px;
     overflow: hidden;

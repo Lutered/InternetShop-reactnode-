@@ -9,14 +9,12 @@ import Sidebar from '../../components/Sidebar/Sidebar';
 
 import globalServices from '../../../services/globalServices';
 
-import { searchProducts, fetchCategoryById } from '../../../services/http/API/ProductApi';
-
 import './productSearch.css';
 
 const ProductSearch = () => {
+    //#region variables
     const basketService = globalServices.getBasketServices();
-
-    const pageLimit = 9;
+    const productService = globalServices.getProductService();
 
     const [cardsArray, setCards] = useState([]);
     const [numberOfPages, setTotalPages] = useState(1);
@@ -26,8 +24,11 @@ const ProductSearch = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
+    const pageLimit = 9;
     const currentPage = searchParams.get('page') ? Number(searchParams.get('page')) : 1;
+    //#endregion
 
+    //#region functions
     const openCardFn = (id) => {
         navigate(`/product?id=${id}`);
     };
@@ -37,20 +38,10 @@ const ProductSearch = () => {
     };
 
     const getPageProducts = (page, params) => {
-        searchProducts(page, pageLimit, params).then(data => {
-            const array = data.rows.map(val => {
-                return {
-                    id: val.id,
-                    title: val.name,
-                    text: val.description,
-                    rating: val.rating,
-                    price: val.price,
-                    img: process.env.REACT_APP_IMAGES_PRODUCTS_FOLDER_URL + val.img
-                };
-            });
-            setCards(array);
+        productService.searchProducts(page, pageLimit, params).then(products => {
+            setCards(products);
 
-            let totalPages = Math.ceil(data.count/pageLimit);
+            let totalPages = Math.ceil(products.count/pageLimit);
             if(totalPages === 0) totalPages = 1;
             setTotalPages(totalPages); 
         });
@@ -63,6 +54,7 @@ const ProductSearch = () => {
        searchParams.set('page', pageNumber);
        navigate(`${location.pathname}?${searchParams.toString()}`);
     };
+    //#endregion
 
     useEffect(() => {
         const categoryId = searchParams.get('categoryId');
@@ -76,8 +68,8 @@ const ProductSearch = () => {
         });
 
         if(categoryId){
-            fetchCategoryById(categoryId).then(data => {
-                setSearchTitle(data.name);
+            productService.getCategoryByIdAsync(categoryId).then(category => {
+                setSearchTitle(category.name);
             });
         }else if(search){
             setSearchTitle(`Результаты поиска "${search}"`);
@@ -101,7 +93,7 @@ const ProductSearch = () => {
                        
                     </Sidebar>
                 </div>
-                <div className='main-content-container'> 
+                <div className='main-content-container d-flex flex-column'> 
                     
                     <ProductCards elements = {cardsArray} cardClickFn={openCardFn} basketClickFn={addToBasketClickFn} > </ProductCards>
                     {

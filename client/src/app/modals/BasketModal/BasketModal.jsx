@@ -57,7 +57,7 @@ const BasketModal = observer(({ onHide }) => {
             <Modal.Body>
                 {basketService.getBasketList().map((val, index) => 
                     <div key={index} className='basketItem'>
-                        <div className='basketItem-body'>
+                        <div className='d-flex'>
                             <div>
                                 <img src={val.img} className='basketItem-body-img'/>
                             </div>
@@ -70,8 +70,8 @@ const BasketModal = observer(({ onHide }) => {
                                </Button>
                             </div>
                         </div>
-                        <div className='basketItem-footer'>
-                            <div className='baketItem-quantity-container'>
+                        <div className='d-flex justify-content-end'>
+                            <div className='d-flex align-items-center'>
                                 <Dash 
                                       size={quantityBtnSize} 
                                       className={val.count <= 1 ? 

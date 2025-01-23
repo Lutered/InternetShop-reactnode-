@@ -7,8 +7,6 @@ import { List, Cart3, Person} from 'react-bootstrap-icons';
 
 import { observer } from "mobx-react-lite";
 
-import BasketModal from '../../modals/BasketModal/BasketModal';
-
 import { HOME_ROUTE, SEARCH_ROUTE } from '../../router/routeConsts';
 import globalServices from '../../../services/globalServices';
 
@@ -17,20 +15,22 @@ import './navbar.css';
 const buttonsSize = 28;
 
 const NavBar = observer(() => {
-    const navigate = useNavigate();
-
+    //#region variables
     const basketService = globalServices.getBasketServices();
 
+    const navigate = useNavigate();
+    const location = useLocation();
     const [searchParams] = useSearchParams();
     const urlSearchValue = searchParams.get('search');
 
     const [searchValue, setSearchValue] = useState('');
+    //#endregion
 
-    let location = useLocation();
-
+    //#region functions
     const onChangeSearchTF = (e) => { 
         setSearchValue(e.target.value); 
     };
+
     const onKeyDownSearchTF = (e) => { 
         if (e.key === "Enter") { 
             searchFn();
@@ -44,6 +44,7 @@ const NavBar = observer(() => {
 
         navigate(searchUrl);
     };
+    //#endregion
 
     useEffect(() => {
         if(location.pathname === SEARCH_ROUTE)
@@ -55,40 +56,40 @@ const NavBar = observer(() => {
         <Navbar bg="dark" className="bg-body-tertiary "> 
                 {/* <BasketModal /> */}
 
-                <Button variant="outline-light" className='navbuttons'>
+                <Button variant="outline-light" className='nav-buttons'>
                     <List color="white" size={30}/>
                 </Button>
                 
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Brand href={HOME_ROUTE} className='navbrand'>Direct</Navbar.Brand>
+                <Navbar.Brand href={HOME_ROUTE} className='nav-brand'>Direct</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
                 <Navbar.Collapse id="basic-navbar-nav">
-                    <div className='navsearch'>
+                    <div className='nav-search'>
                         <input 
                             type="text" 
-                            className='navsearchfield' 
+                            className='nav-searchfield' 
                             value={searchValue} 
                             onChange={onChangeSearchTF} 
                             onKeyDown={onKeyDownSearchTF}/>     
-                        <Button variant="success" className='navsearchbutton' onClick={searchFn}>Найти</Button>
+                        <Button variant="success" className='nav-searchbutton' onClick={searchFn}>Найти</Button>
                     </div>
                    
                 </Navbar.Collapse>
 
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
-                <div className='navbuttonssection'>
-                    <Button variant="outline-light" className='navbuttons navBasket' onClick={() => {basketService.showBasketWnd()}}>
+                <div className='d-flex'>
+                    <Button variant="outline-light" className='nav-buttons nav-basket' onClick={() => {basketService.showBasketWnd()}}>
                         <Cart3 color="white" size={buttonsSize}/> 
                         {
                             basketService.getBasketCount() > 0 ? 
-                            <div className='navBasketCount'>{basketService.getBasketCount()}</div> 
+                            <div className='nav-basketCount'>{basketService.getBasketCount()}</div> 
                             : null
                         }
                         
                     </Button>
-                    <Button variant="outline-light" className='navbuttons'>
+                    <Button variant="outline-light" className='nav-buttons'>
                         <Person color="white" size={buttonsSize}/>
                     </Button>
                 </div>

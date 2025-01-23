@@ -65,7 +65,9 @@ const getPaginationItems = (fromPage, toPage, breakpoint, onClickFn) => {
 
 const PaginationPanel = ({currentPage, numberOfPages, onClickFn}) => {
     const numberIndent = 2;
+
     let items = [];
+    let pagginationClass = 'paggination-center';
 
     items.push(
         <Pagination.Item key={currentPage} active={true} activeLabel={''}>
@@ -83,7 +85,7 @@ const PaginationPanel = ({currentPage, numberOfPages, onClickFn}) => {
         items.push(getPaginationItems(currentPage + 1, currentPage + numberIndent, numberOfPages, onClickFn));
 
     return ( 
-        <Pagination className='paggination-center'>
+        <Pagination className={pagginationClass}>
             {items}
         </Pagination> 
     );

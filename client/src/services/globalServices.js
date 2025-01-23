@@ -1,13 +1,23 @@
-import BasketService from './Basket/BasketService';
+import BasketService from './app_services/BasketService';
+import ProductService from './app_services/ProductService';
 
 export default class globalServices {
     static basketService;
+    static productService;
 
     static getBasketServices(){
-        if(!this.basketService){
-            this.basketService = new BasketService();
+        if(!globalServices.basketService){
+            globalServices.basketService = new BasketService();
         }
 
-        return this.basketService;
+        return globalServices.basketService;
+    }
+
+    static getProductService(){
+        if(!globalServices.productService){
+            globalServices.productService = new ProductService();
+        }
+
+        return globalServices.productService;
     }
 };

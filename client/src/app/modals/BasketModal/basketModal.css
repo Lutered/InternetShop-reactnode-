@@ -19,10 +19,6 @@
     border: 1px solid lightgray
 }
 
-.basketItem-body{
-    display: flex;
-}
-
 .basketItem-body-img{
     width: 100px; 
     height: 100px;
@@ -34,16 +30,6 @@
 
 .basketItem-body-text{
     margin: 5px 0px 5px 10px;
-}
-
-.basketItem-footer{
-    display: flex;
-    justify-content: end;
-}
-
-.baketItem-quantity-container{
-    display: flex; 
-    align-items: center;
 }
 
 .basketItem-quantity-input{

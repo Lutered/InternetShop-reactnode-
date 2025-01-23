@@ -1,4 +1,4 @@
-.navsearch{
+.nav-search{
     display: flex;
     width: 85%;
     margin-left: auto;
@@ -8,7 +8,7 @@
     max-width: 800px;
 }
 
-.navsearchfield{
+.nav-searchfield{
     width: 100%;
     margin-left: auto;
     margin-right: auto;
@@ -20,16 +20,15 @@
     border-radius: 5px;
 }
 
-.navsearchbutton{
-    margin-left: 5px;
-    margin-right: 5px;
+.nav-searchbutton{
+    margin: 0 5px 0 5px;
 }
 
-.navbuttonssection{
+.nav-buttonssection{
     display: flex;
 }
 
-.navbuttons{
+.nav-buttons{
     border: 0px none transparent;
     padding: 10px;
     margin-right: 5px;
@@ -37,27 +36,27 @@
     box-shadow: none !important;
 }
 
-.navbuttons:hover{
+.nav-buttons:hover{
     background-color: #4b5259; 
 }
 
-.navbrand{
+.nav-brand{
     color:white!important; 
     margin:10px; 
     font-family: Lucida; 
     font-size: 20px;
 }
 
-.navBasket{
+.nav-basket{
     position: relative;
     color: white
 }
 
-.navBasket:hover{
+.nav-basket:hover{
     color: white
 }
 
-.navBasketCount{
+.nav-basketCount{
     background-color: green; 
     border-radius: 50%;
     justify-content: center;
