@@ -25,7 +25,7 @@ const ProductDetail = () => {
     return ( 
         <div className='main-container'>
                 <h2 className='productDetail-title'>{product.name}</h2>
-               <ProductTabs product={product}/>
+                <ProductTabs product={product}/>
         </div> 
     );
 }

@@ -16,6 +16,21 @@ export const searchProducts = async (page, limit, searchParams) => {
     return data;
 };
 
+export const searchProducts2 = async (page, limit, params = {}) => {
+    let requestParams = {page, limit};
+    requestParams = params.reqParams ? 
+        {...requestParams, ...params.reqParams} : 
+        requestParams; 
+
+    let url = `${productUrl}/search2`;
+    url = params.productType ? 
+        `${url}/${params.productType}` : 
+        url;
+
+    const {data} = await $host.get(url, {params: requestParams});
+    return data;
+};
+
 export const fetchProductById = async (id) => {
     const {data} = await $host.get(`${productUrl}/get/${id}`);
     return data;
@@ -28,8 +43,8 @@ export const fetchProductTypes = async (page, limit = 20) => {
     return data;
 };
 
-export const fetchProductTypeById = async (id) => {
-    const {data} = await $host.get(`${productUrl}/getType/${id}`);
+export const fetchProductType = async (code) => {
+    const {data} = await $host.get(`${productUrl}/getType/${code}`);
     return data;
 };
 

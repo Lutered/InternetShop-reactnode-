@@ -1,0 +1,50 @@
+.filter-container{
+    /* padding-right: 10px; */
+    color: #3e3d3d;
+}
+
+.filter-expand-group{
+    border-bottom: 1px solid lightgray;
+    padding-right: 10px;
+}
+
+.filter-expand-label{
+    padding: 10px 10px 10px 0;
+    font-size: 16px;
+    font-weight: 400;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    color: inherit;
+}
+
+.filter-expand-icon-container{
+    display: flex;
+    align-items: center;
+    transition: all 2s ease;
+}
+
+.filter-expand-icon-container-expanded{
+    transform: rotate(-180deg);
+}
+
+.filter-expand-wrapper{
+    overflow: hidden;
+}
+
+.filter-expand-element {
+    transition: all 1s ease;
+}
+
+.filter-expand-collapsed{
+    margin-top: -100%;
+}
+
+.filter-expand-expanded{
+    margin-top: 0;
+}
+
+.filter-expand-child-container{
+    padding-bottom: 10px;
+}

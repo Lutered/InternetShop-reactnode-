@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import { useEffect } from 'react';
 
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -11,7 +11,7 @@ import { Trash3 } from 'react-bootstrap-icons';
 
 import CurrencyIcons from "../../additionalComponents/CurrencyIcons";
 
-import globalService from '../../../services/globalServices';
+import globalServices from '../../../services/globalServices';
 
 import './basketModal.css';
 
@@ -20,10 +20,14 @@ const BasketModal = observer(({ onHide }) => {
     const quantityBtnSize = 30;
     const quantityBtnClass = 'basketItem-quantity-buttons';
 
-    const basketService = globalService.getBasketServices();
+    const basketService = globalServices.getBasketService();
+    const modalService = globalServices.getModalService();
+
+    const isShowed = modalService.isModalShowed('basket');
 
     const closeFn = () =>{
-        basketService.hideBasketWnd();
+        //basketService.hideBasketWnd();
+        modalService.hide('basket');
 
         onHide && onHide();
     };
@@ -49,8 +53,13 @@ const BasketModal = observer(({ onHide }) => {
         return price * count;
     };
 
+    useEffect(() => {
+        if(isShowed) 
+            basketService.updateBasketItems();
+    }, [isShowed]);
+
     return (  
-        <Modal className="basket" show={basketService.isBasketShowed()} onHide={closeFn}>
+        <Modal className="basket" show={isShowed} onHide={closeFn}>
             <Modal.Header closeButton>
                 <Modal.Title>Корзина</Modal.Title>
             </Modal.Header>

@@ -7,6 +7,8 @@ import { List, Cart3, Person} from 'react-bootstrap-icons';
 
 import { observer } from "mobx-react-lite";
 
+import LoginModal from '../../modals/LoginModal/LoginModal'
+
 import { HOME_ROUTE, SEARCH_ROUTE } from '../../router/routeConsts';
 import globalServices from '../../../services/globalServices';
 
@@ -16,7 +18,11 @@ const buttonsSize = 28;
 
 const NavBar = observer(() => {
     //#region variables
-    const basketService = globalServices.getBasketServices();
+    const basketService = globalServices.getBasketService();
+    const modalService = globalServices.getModalService();
+    const userService = globalServices.getUserService();
+
+    const user = userService.getUser();
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -37,10 +43,18 @@ const NavBar = observer(() => {
         }
     };
 
+    const onBasketClick = () => {
+        modalService.show('basket');
+    };
+
+    const onLoginClick = () => {
+        modalService.show('login');
+    }
+
     const searchFn = () =>{
         let searchUrl = SEARCH_ROUTE;
 
-        if(searchValue !== '') searchUrl = `${searchUrl}?search=${searchValue}`;
+        if(searchValue !== '') searchUrl = `${searchUrl}?text=${searchValue}`;
 
         navigate(searchUrl);
     };
@@ -53,8 +67,9 @@ const NavBar = observer(() => {
     }, [urlSearchValue, location]);
 
     return (
-        <Navbar bg="dark" className="bg-body-tertiary "> 
+        <Navbar bg="dark" className="bg-body-tertiary nav"> 
                 {/* <BasketModal /> */}
+                
 
                 <Button variant="outline-light" className='nav-buttons'>
                     <List color="white" size={30}/>
@@ -80,7 +95,7 @@ const NavBar = observer(() => {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
                 <div className='d-flex'>
-                    <Button variant="outline-light" className='nav-buttons nav-basket' onClick={() => {basketService.showBasketWnd()}}>
+                    <Button variant="outline-light" className='nav-buttons nav-basket' onClick={onBasketClick}>
                         <Cart3 color="white" size={buttonsSize}/> 
                         {
                             basketService.getBasketCount() > 0 ? 
@@ -89,9 +104,16 @@ const NavBar = observer(() => {
                         }
                         
                     </Button>
-                    <Button variant="outline-light" className='nav-buttons'>
-                        <Person color="white" size={buttonsSize}/>
-                    </Button>
+                    {user ? 
+                        <Button variant="outline-light" className='nav-buttons'>
+                            <div className="nav-avatar">
+                                {user?.name ? user.name[0] : 'U'}
+                            </div>
+                        </Button> :
+                        <Button variant="outline-light" className='nav-buttons' onClick={onLoginClick}>
+                            <Person color="white" size={buttonsSize}/>
+                        </Button> 
+                    }
                 </div>
         </Navbar>
     )

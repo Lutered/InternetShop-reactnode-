@@ -15,7 +15,7 @@ function ProductCards ({elements, cardClickFn, basketClickFn}) {
   };
 
     return (
-        <div>
+        <div className='d-flex flex-wrap'>
             {elements.map((val, index) => 
               <Card className="productCard" key ={index} onClick={() => { cardClickFn && cardClickFn(val.id); }}>
                 <div className="card-img-wrapper">
@@ -25,7 +25,7 @@ function ProductCards ({elements, cardClickFn, basketClickFn}) {
                 <Card.Body>
                   <Card.Title>{val.name}</Card.Title>
 
-                  <div className='d-flex align-items-center'>
+                  <div className='price-rating'>
                     <Rating rating={val.rating} className='d-flex'></Rating>
                     <ChatDots size={16} className='ms-2'/>
                   </div>

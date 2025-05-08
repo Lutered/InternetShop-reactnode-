@@ -1,11 +1,15 @@
 import {useState, useEffect} from 'react';
-import { useSearchParams, useNavigate, useLocation } from 'react-router-dom';
+import { useSearchParams, useNavigate, useLocation, useParams  } from 'react-router-dom';
 
 import Row from 'react-bootstrap/Row';
+import Form from 'react-bootstrap/Form';
 
 import ProductCards from '../../components/ProductCards/ProductCards';
 import PaginationPanel from '../../components/Paggination/Pagination';
 import Sidebar from '../../components/Sidebar/Sidebar';
+import ProductFilter from '../../components/ProductFilter/ProductFilter';
+
+import { PRODUCT_DETAIL_ROUTE } from '../../router/routeConsts';
 
 import globalServices from '../../../services/globalServices';
 
@@ -13,73 +17,83 @@ import './productSearch.css';
 
 const ProductSearch = () => {
     //#region variables
-    const basketService = globalServices.getBasketServices();
+    const basketService = globalServices.getBasketService();
     const productService = globalServices.getProductService();
+    const modalService = globalServices.getModalService();
 
     const [cardsArray, setCards] = useState([]);
     const [numberOfPages, setTotalPages] = useState(1);
+    const [currentPage, setCurrentPage] = useState(1);
     const [searchTitle, setSearchTitle] = useState();
+    const [filterConfig, setFilterConfig] = useState([]);
 
-    const [searchParams, setSearchParams] = useSearchParams();
+    const pathParams = useParams();
+    const [searchParams] = useSearchParams();
     const navigate = useNavigate();
-    const location = useLocation();
 
     const pageLimit = 9;
-    const currentPage = searchParams.get('page') ? Number(searchParams.get('page')) : 1;
+    const productType = pathParams.productType;
+    const searchValue = searchParams.get('text');
     //#endregion
 
     //#region functions
     const openCardFn = (id) => {
-        navigate(`/product?id=${id}`);
+        navigate(`${PRODUCT_DETAIL_ROUTE}?id=${id}`);   
     };
 
     const addToBasketClickFn = (id) => {
-        basketService.addProductToBasket(id, {showBasketWnd: true});
+        basketService.addProductToBasket(id).then(() => {
+            modalService.show('basket');
+        });
     };
 
-    const getPageProducts = (page, params) => {
-        productService.searchProducts(page, pageLimit, params).then(products => {
+    const updateCardsFn = () => {
+        let reqParams = {};
+
+        searchParams.forEach((value, key) => {
+            switch(key){
+                case 'text':
+                    reqParams.searchValue = value;
+                    break;
+                default:
+                    reqParams[key] = value;
+                    break;
+            }
+        });
+
+        productService.searchProducts2(currentPage, pageLimit, {
+            productType,
+            reqParams
+        }).then(products => {
             setCards(products);
 
             let totalPages = Math.ceil(products.count/pageLimit);
             if(totalPages === 0) totalPages = 1;
             setTotalPages(totalPages); 
+
+            if(currentPage > totalPages) setCurrentPage(totalPages);
         });
     };
 
     const paginationClickFn = (pageNumber) => {
-       // setPage(pageNumber);
-       // getPageProducts(pageNumber);
-
-       searchParams.set('page', pageNumber);
-       navigate(`${location.pathname}?${searchParams.toString()}`);
+        setCurrentPage(pageNumber);
+        updateCardsFn();
     };
     //#endregion
 
     useEffect(() => {
-        const categoryId = searchParams.get('categoryId');
-        const brandId = searchParams.get('brandId');
-        const search = searchParams.get('search');
+        if(productType){
 
-        getPageProducts(currentPage, {
-            categoryId,
-            brandId,
-            search
-        });
-
-        if(categoryId){
-            productService.getCategoryByIdAsync(categoryId).then(category => {
-                setSearchTitle(category.name);
-            });
-        }else if(search){
-            setSearchTitle(`Результаты поиска "${search}"`);
-        }else{
+        }else if(searchValue)
+            setSearchTitle(`Результаты поиска "${searchValue}"`);
+        else
             setSearchTitle('Поиск');
-        }
+
+        updateCardsFn();
     }, [searchParams]);
 
     return (
-        <div className='main-container'>
+        <div className='main-container d-flex flex-column'>
             <div className='productSearch-title'>
                 {
                     searchTitle ? 
@@ -87,13 +101,15 @@ const ProductSearch = () => {
                     : null
                 }
             </div>
-            <div className='d-flex flex-row productSearch-container'>
-                <div className='main-sidebar-container'>
-                    <Sidebar>
-                       
-                    </Sidebar>
-                </div>
-                <div className='main-content-container d-flex flex-column'> 
+            <div className='productSearch-container container-sidebar'>
+                {filterConfig.length !== 0 ? 
+                    <div className='main-sidebar-container'>
+                        <Sidebar>
+                            <ProductFilter />
+                        </Sidebar>
+                    </div> : null
+                }
+                <div className='main-content-container d-flex flex-column ali'> 
                     
                     <ProductCards elements = {cardsArray} cardClickFn={openCardFn} basketClickFn={addToBasketClickFn} > </ProductCards>
                     {

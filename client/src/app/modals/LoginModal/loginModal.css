@@ -1,0 +1,32 @@
+.loginModal .modal-dialog{
+    width: 500px;
+    height: 500px;
+}
+
+.loginModal-registerBtn{
+    background-color: #3354ab;
+}
+
+.loginModal-registerBtn:hover{
+    background-color: #284186;
+}
+
+.loginModal-divider {
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    color: #393434;
+}
+  
+.loginModal-divider::before, .loginModal-divider::after {
+    flex: 1;
+    content: '';
+    padding-top: 1px;
+    background-color: lightgray;
+    margin: 7px;
+}
+
+.loginModal-errorText{
+    color: red;
+    font-size: 14px;
+}

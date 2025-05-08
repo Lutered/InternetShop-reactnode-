@@ -9,8 +9,11 @@ function InitFn() {
         });
     }
 
-    const basketService = globalServices.getBasketServices();
+    const basketService = globalServices.getBasketService();
     basketService.updateBasketItemsCount();
+
+    const userService = globalServices.getUserService();
+    userService.updateAuthToken();
 }
 
 export default InitFn;

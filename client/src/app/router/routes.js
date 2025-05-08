@@ -9,7 +9,7 @@ import {
         ADMIN_ROUTE, 
         PRODUCT_DETAIL_ROUTE, 
         SEARCH_ROUTE, 
-        TYPE_DETAIL_ROUTE 
+        TYPE_DETAIL_ROUTE
 } from "./routeConsts";
 
 export const authRoutes = [
@@ -29,11 +29,11 @@ export const publicRoutes = [
         Component: ProductDetail
     },
     {
-        path: SEARCH_ROUTE,
+        path: `${SEARCH_ROUTE}/:productType?`,
         Component: ProductSearch
     },
     {
-        path: TYPE_DETAIL_ROUTE,
+        path: `${TYPE_DETAIL_ROUTE}/:productType`,
         Component: TypeDetail
-    },
+    }
 ];

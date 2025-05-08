@@ -1,11 +1,13 @@
 import React, {useState, useEffect} from 'react';
-import { useSearchParams, useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/esm/Col';
 
 import CategoryCards from '../../components/CategoryCards/CategoryCards';
+
+import {SEARCH_ROUTE} from '../../router/routeConsts';
 
 import globalServices from '../../../services/globalServices';
 
@@ -16,25 +18,29 @@ function TypeDetail() {
     const [categoriesArray, setCategoriesArray] = useState([]);
     const [title, setTitle] = useState('');
 
-    const [searchParams, setSearchParams] = useSearchParams();
+    const pathParams = useParams();
     const navigate = useNavigate();
 
-    const typeId = searchParams.get('id');
+    const productTypeCode = pathParams.productType;
     //#endregion
 
-    const openCategoryFn = (id) => {
-        navigate(`/search?categoryId=${id}`);
+    const openCategoryFn = (category) => {
+       let route = `${SEARCH_ROUTE}/${category.typeCode}`;
+       
+        if(category.filter) route += `?${category.filter}`;
+        
+        navigate(route);
     };
 
     useEffect(() => {
-        productService.getProductTypeById(typeId).then(type => {
+        productService.getProductType(productTypeCode).then(type => {
             setTitle(type.name);
-        });
 
-        productService.getCategoriesAsync(1, 20, {typeId}).then(categories => {
-            setCategoriesArray(categories);
+            productService.getCategoriesAsync(1, 20, {typeId: type.id}).then(categories => {
+                setCategoriesArray(categories);
+            });
         });
-    }, [typeId]);
+    }, [productTypeCode]);
 
     return ( 
         <Container className='main-container'>

@@ -3,7 +3,8 @@ import {BrowserRouter} from "react-router-dom";
 
 import AppRouter from "./app/router/AppRouter";
 import NavBar from "./app/components/NavBar/NavBar";
-import BasketModal from "./app/modals/BasketModal/BasketModal";
+
+import GlobalModals from "./app/modals/globalModals";
 
 import InitFn from "./initFn";
 
@@ -16,13 +17,14 @@ function App() {
   }, []);
 
   return (
-    <div>
-      <BrowserRouter>
-        <NavBar />
-        <BasketModal />
+    <BrowserRouter>
+      <GlobalModals />
+      
+      <NavBar />
+      <div className="router-container">
         <AppRouter />
-      </BrowserRouter>
-    </div>
+      </div>
+    </BrowserRouter>
   );
 }
 

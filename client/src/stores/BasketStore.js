@@ -4,8 +4,6 @@ export default class BasketStore {
     _basketList = [];
     _basketCount = 0;
 
-    _isBasketHidden = true;
-
     constructor(){
         makeAutoObservable(this);
     }
@@ -23,17 +21,6 @@ export default class BasketStore {
     }
     setBasketCount(count){
         this._basketCount = count;
-    }
-
-    showBasket(){ 
-        this._isBasketHidden = false; 
-    }
-    hideBasket(){ 
-        this._isBasketHidden = true; 
-    }
-
-    isBasketShowed(){
-        return !this._isBasketHidden;
     }
 
     updateBasketItem(id, data){

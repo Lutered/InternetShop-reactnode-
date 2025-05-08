@@ -1,4 +1,5 @@
 import Cookies from 'js-cookie';
+import BasketStore from '../../stores/BasketStore';
 
 import { 
         fetchBasketItems, 
@@ -8,26 +9,11 @@ import {
         changeItemCount 
 } from '../http/API/BasketApi';
 
-import globalStores from '../../dataStore/globalStores';
-
 export default class BasketService{
     _basketStore = null;
 
     constructor(){
-        this._basketStore = globalStores.getBasketStore();
-    }
-
-    showBasketWnd(){
-        this._basketStore.showBasket();
-        this.updateBasketItems();
-    } 
-
-    hideBasketWnd(){
-        this._basketStore.hideBasket();
-    } 
-
-    isBasketShowed(){
-        return this._basketStore.isBasketShowed();
+        this._basketStore = new BasketStore();
     }
 
     getBasketList(){
@@ -94,8 +80,8 @@ export default class BasketService{
             if(config?.updateItems)
                 this.updateBasketItems();
 
-            if(config?.showBasketWnd)
-                this.showBasketWnd();
+            // if(config?.showBasketWnd)
+            //     this.showBasketWnd();
         });
     }
 

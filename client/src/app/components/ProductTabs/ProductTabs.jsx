@@ -19,7 +19,7 @@ import './productTabs.css';
 
 function ProductTabs({product}) {
     const characteristics = product.productCharacteristic ? JSON.parse(product.productCharacteristic) : [];
-    const basketService = globalServices.getBasketServices();
+    const basketService = globalServices.getBasketService();
 
     const addToBasketClickFn = (id) => {
         basketService.addProductToBasket(id, {updateCount: true});
@@ -32,7 +32,7 @@ function ProductTabs({product}) {
             <Tab eventKey="description" title="Описание">
                 <Container className='m-0'>
                     <Row>
-                        <Col xs={5}> 
+                        <Col xs={5} className='productTabs-productImage-container'> 
                             <img src={product.imgUrl} className='productTabs-productImage'></img>
                         </Col>
                         <Col xs={7}> 

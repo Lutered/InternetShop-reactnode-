@@ -3,10 +3,15 @@
     border-bottom: 1px solid lightgray;
 }
 
+.productTabs-productImage-container{
+    display: flex;
+    justify-content: center;
+}
+
 .productTabs-productImage{
     height: auto; 
     width: 100%; 
-    max-width: 450px; 
+    max-width: 400px; 
     margin: 10px;
 }
 

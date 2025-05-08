@@ -1,7 +1,8 @@
 import { 
     fetchProductById,
     searchProducts,
-    fetchProductTypeById,
+    searchProducts2,
+    fetchProductType,
     fetchProductTypes, 
     fetchCategoryById,
     fetchCategories 
@@ -38,8 +39,27 @@ export default class ProductService{
         return mappedProducts;
     }
 
-    async getProductTypeById(){
-        return await fetchProductTypeById(...arguments);
+    async searchProducts2(){
+        const products = await searchProducts2(...arguments);
+
+        const folderUrl = this._productImagesFolderUrl;
+
+        const mappedProducts = products.rows.map(val => {
+            return {
+                id: val.id,
+                name: val.name,
+                description: val.description,
+                rating: val.rating,
+                price: val.price,
+                imgUrl: folderUrl + val.img
+            };
+        });
+
+        return mappedProducts;
+    }
+
+    async getProductType(){
+        return await fetchProductType(...arguments);
     }
 
     async getProductTypesAsync(){
@@ -50,6 +70,7 @@ export default class ProductService{
             return {
                 id: val.id,
                 name: val.name,
+                code: val.code,
                 iconUrl: val.icon ? (folderUrl + val.icon) : null
             };
         });
@@ -69,6 +90,9 @@ export default class ProductService{
             return {
                 id: val.id,
                 name: val.name,
+                filter: val.filter,
+                typeCode: val.product_type.code,
+                typeName: val.product_type.name,
                 imgUrl: val.img ? (folderUrl + val.img) : null,
             };
         });

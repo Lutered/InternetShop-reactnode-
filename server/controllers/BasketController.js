@@ -1,8 +1,8 @@
-const sequelize = require('../database/database');
-
 const ApiError = require('../error/ApiError');
-const { Basket, BasketProduct } = require('../database/models/models');
+const repository = require('../database/repository');
 
+const sequelize =  repository.sequelize;
+const { Basket, BasketProduct } = repository.models;
 class BasketController{
     async get(req, res, next){
         let {id} = req.params;

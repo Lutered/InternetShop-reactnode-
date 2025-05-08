@@ -5,19 +5,19 @@ import './iconGroup.css';
 const IconGroup = ({sidebarArray, clickFn}) => {
     return (
         <ListGroup className='iconGroup'>
-            {sidebarArray.map((val, index) => 
+            {sidebarArray.map((rec, index) => 
                 <ListGroup.Item key={index} 
                                 className="iconGroup-item" 
-                                onClick={() => { clickFn && clickFn(val.id)}}>
+                                onClick={() => { clickFn && clickFn(rec)}}>
 
                     <div className='iconGroup-iconWrapper'>
                         {
-                            val.iconUrl ? 
-                                <img src={val.iconUrl} className='iconGroup-icon' alt="icon" /> 
+                            rec.iconUrl ? 
+                                <img src={rec.iconUrl} className='iconGroup-icon' alt="icon" /> 
                                 : null
                         }
                     </div>
-                    <div>{val.name}</div>
+                    <div>{rec.name}</div>
                 </ListGroup.Item>              
             )}
         </ListGroup>

@@ -1,6 +1,25 @@
+#root{
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+}
+
+.router-container{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
 .main-container {
     margin: auto;
-    max-width: 95%;
+    width: 95%;
+    height: 100%;
+    flex: 1;
+}
+
+.container-sidebar{
+    display: flex;
+    flex-direction: row;
 }
 
 .main-content-container{
@@ -10,5 +29,5 @@
 
 .main-sidebar-container{
     width: 250px;
-    min-width: 250px;
+    min-height: 100%;
 }
