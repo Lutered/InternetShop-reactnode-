@@ -1,11 +1,11 @@
 import { 
     fetchProductById,
     searchProducts,
-    searchProducts2,
+    getFilterOptions,
     fetchProductType,
     fetchProductTypes, 
     fetchCategoryById,
-    fetchCategories 
+    fetchCategories
 } from '../http/API/ProductApi';
 
 export default class ProductService{
@@ -13,8 +13,20 @@ export default class ProductService{
     _categoryImagesFolderUrl = process.env.REACT_APP_IMAGES_PREVIEW_FOLDER_URL;
     _iconsFolderUrl = process.env.REACT_APP_ICONS_FOLDER_URL;
 
+    _errorService;
+
+    constructor(errorService){
+        this._errorService = errorService;
+    }
+
     async getProductById(){
-        let product = await fetchProductById(...arguments);
+        let product = await this._errorService.handleRequest(
+            fetchProductById(...arguments)
+        );
+
+        if(!product){
+            return null;
+        }
 
         product.imgUrl = this._productImagesFolderUrl + product.img;
 
@@ -22,25 +34,11 @@ export default class ProductService{
     }
 
     async searchProducts(){
-        const products = await searchProducts(...arguments);
-        const folderUrl = this._productImagesFolderUrl;
+        const products = await this._errorService.handleRequest( 
+            searchProducts(...arguments)
+        );
 
-        const mappedProducts = products.rows.map(val => {
-            return {
-                id: val.id,
-                name: val.name,
-                description: val.description,
-                rating: val.rating,
-                price: val.price,
-                imgUrl: folderUrl+ val.img
-            };
-        });
-
-        return mappedProducts;
-    }
-
-    async searchProducts2(){
-        const products = await searchProducts2(...arguments);
+        if(!products) return [];
 
         const folderUrl = this._productImagesFolderUrl;
 
@@ -58,12 +56,21 @@ export default class ProductService{
         return mappedProducts;
     }
 
-    async getProductType(){
-        return await fetchProductType(...arguments);
+    async getFilterOptions(id){
+        return await this._errorService.handleRequest(getFilterOptions(id));
     }
 
-    async getProductTypesAsync(){
-        const productTypes = await fetchProductTypes(...arguments);
+    async getProductType(){
+        return await this._errorService.handleRequest(fetchProductType(...arguments));
+    }
+
+    async getProductTypes(){
+        const productTypes = await this._errorService.handleRequest(
+            fetchProductTypes(...arguments)
+        );
+
+        if(!productTypes) return [];
+
         const folderUrl = this._iconsFolderUrl;
 
         const mappedProductTypes = productTypes.rows.map(val => {
@@ -79,11 +86,16 @@ export default class ProductService{
     }
 
     async getCategoryByIdAsync(){
-        return await fetchCategoryById(...arguments);
+        return await this._errorService.handleRequest(fetchCategoryById(...arguments));
     }
 
     async getCategoriesAsync(){
-        const categories = await fetchCategories(...arguments);
+        const categories = await this._errorService.handleRequest(
+            fetchCategories(...arguments)
+        );
+
+        if(!categories) return [];
+
         const folderUrl = this._categoryImagesFolderUrl;
 
         const mappedCategories = categories.rows.map(val => {

@@ -2,12 +2,14 @@ import BasketService from './app_services/BasketService';
 import ProductService from './app_services/ProductService';
 import UserService from './app_services/UserService';
 import ModalService from './app_services/ModalService';
+import ErrorService from './app_services/ErrorService';
 
 export default class globalServices {
     static basketService;
     static productService;
     static userService;
     static modalService;
+    static errorService;
 
     static getBasketService(){
         if(!globalServices.basketService){
@@ -19,7 +21,7 @@ export default class globalServices {
 
     static getProductService(){
         if(!globalServices.productService){
-            globalServices.productService = new ProductService();
+            globalServices.productService = new ProductService(globalServices.getErrorService());
         }
 
         return globalServices.productService;
@@ -39,5 +41,13 @@ export default class globalServices {
         }
 
         return globalServices.modalService;
+    }
+
+    static getErrorService(){
+        if(!globalServices.errorService){
+            globalServices.errorService = new ErrorService();
+        }
+
+        return globalServices.errorService;
     }
 };

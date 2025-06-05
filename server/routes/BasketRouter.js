@@ -1,11 +1,13 @@
 const Router = require('express');
-const router = new Router();
 const basketController = require('../controllers/BasketController');
+const errorShell = require('./shells/ErrorShell');
 
-router.get('/get/:id', basketController.get);
-router.get('/getCount/:id', basketController.getCount);
-router.post('/addProduct', basketController.add);
-router.post('/removeProduct', basketController.remove);
-router.post('/changeCount', basketController.changeItemCount);
+const router = new Router();
+
+router.get('/get/:id', errorShell(basketController.get));
+router.get('/getCount/:id', errorShell(basketController.getCount));
+router.post('/addProduct', errorShell(basketController.add));
+router.post('/removeProduct', errorShell(basketController.remove));
+router.post('/changeCount', errorShell(basketController.changeItemCount));
 
 module.exports = router;

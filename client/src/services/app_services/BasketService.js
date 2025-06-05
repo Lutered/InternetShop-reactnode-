@@ -1,4 +1,4 @@
-import Cookies from 'js-cookie';
+//import Cookies from 'js-cookie';
 import BasketStore from '../../stores/BasketStore';
 
 import { 
@@ -25,7 +25,7 @@ export default class BasketService{
 
     updateBasketItems(){
         const basketStore = this._basketStore;
-        const basketId = Cookies.get('basketId');
+        const basketId = localStorage.getItem('basketId'); //Cookies.get('basketId');
     
         if(!basketId){
             basketStore.setBasketList([]);
@@ -51,7 +51,7 @@ export default class BasketService{
 
     updateBasketItemsCount(){
         const basketStore = this._basketStore;
-        const basketId = Cookies.get('basketId');
+        const basketId = localStorage.getItem('basketId'); //Cookies.get('basketId');
     
         if(!basketId){
             basketStore.setBasketCount(0);
@@ -67,13 +67,14 @@ export default class BasketService{
     }
 
     addProductToBasket(productId, config){
-        const basketId = Cookies.get('basketId');
+        const basketId = localStorage.getItem('basketId');//Cookies.get('basketId');
     
         if(!productId) throw  new Error('Product Id cannot be empty');
     
         return addBasketItem(basketId, productId).then(data => {
-            if(!basketId) Cookies.set('basketId', data.basketId);
-            
+            if(!basketId) //Cookies.set('basketId', data.basketId);
+                localStorage.setItem('basketId', data.basketId);
+
             if(config?.updateCount)
                 this.updateBasketItemsCount();
 

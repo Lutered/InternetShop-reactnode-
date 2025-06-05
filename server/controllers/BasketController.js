@@ -1,5 +1,7 @@
-const ApiError = require('../error/ApiError');
+const { Product } = require('../database/models/models');
 const repository = require('../database/repository');
+const { responseWithError }= require('../helpers/ErrorHelper');
+const uuid = require('uuid');
 
 const sequelize =  repository.sequelize;
 const { Basket, BasketProduct } = repository.models;
@@ -8,15 +10,18 @@ class BasketController{
         let {id} = req.params;
         
         if(!id)
-            return res.status(400).send('Id parameter cannot be empty');
+            return responseWithError(res, 400, 'Id parameter cannot be empty');
 
         let basket = await BasketProduct.findAll({
             attributes: ['id', 'count'],
             include: [{
                 association: 'product',
                 attributes: ['id', 'name', 'price', 'img']
-            }],
-            where: {basketId: id}
+            },{
+                association: 'basket',
+                where: {uuid: id}
+            }]
+            //where: {basketId: id}
         });
 
         return res.json(basket);
@@ -26,14 +31,20 @@ class BasketController{
         let {id} = req.params;
         
         if(!id)
-            return res.status(400).send('Id parameter cannot be empty');
+            return responseWithError(res, 400, 'Id parameter cannot be empty');
+
+        let basket = await Basket.findOne({where: {uuid: id}});
+
+        if(!basket)
+            return responseWithError(res, 400, `Baskete with Id - ${id} was not found`);
 
         let basketCountResp = await BasketProduct.findAll({
             attributes: [
                 [sequelize.fn('sum', sequelize.col('count')), 'totalCount']
             ],
-            group: ['basketId'],
-            having: {basketId: id},
+            where: {
+                basketId: basket.id
+            },
             raw: true
         });
 
@@ -45,100 +56,90 @@ class BasketController{
     }
 
     async add(req, res, next){
-        let {basketId, productId} = req.body;
+        let basketUUId = req.body.basketId;
+        let productUUId = req.body.productId;
 
-        try{
-            if(!productId)
-                return res.status(400).send('Product id parameter cannot be empty');
+        if(!productUUId)
+            return responseWithError(res, 400, 'Product id parameter cannot be empty');
 
-            let basket = basketId ? 
-                await Basket.findOne({where: {id: basketId}}) :
-                await Basket.create({});
-
-            if(!basket)
-                throw 'Basket was not found';
-
-            basketId = basket.id;
-
-            let basketProduct = await BasketProduct.findOne({
-                where: {basketId, productId}
+        let basket = basketUUId ? 
+            await Basket.findOne({where: {uuid: basketUUId}}) :
+            await Basket.create({
+                uuid: uuid.v4()
             });
 
-            if(basketProduct){
-                basketProduct.count += 1;
-                await basketProduct.save();
-            }else{
-                basketProduct = await BasketProduct.create({
-                    basketId: basketId,
-                    productId: productId,
-                    count: 1
-                });
+        if(!basket)
+            return responseWithError(res, 400, 'Basket was not found');
+
+        let product = await Product.findOne({where: {uuid: productUUId}});
+
+        if(!product)
+            return responseWithError(res, 400, 'Product was not found');
+
+        let basketProduct = await BasketProduct.findOne({
+            where: {
+                basketId: basket.id, 
+                productId: product.id
             }
+        });
 
-            return res.json({
-                basketId: basketId,
-                message: 'Product was successfully added'
+        if(basketProduct){
+            basketProduct.count += 1;
+            await basketProduct.save();
+        }else{
+            basketProduct = await BasketProduct.create({
+                basketId: basket.id,
+                productId: product.id,
+                count: 1
             });
         }
-        catch(e){
-            next(ApiError.badRequest(e.message))
-        }
+
+        return res.status(201).json({
+            basketId: basket.uuid,
+            message: 'Product was successfully added'
+        });
     }
 
     async remove(req, res, next){
         let {id} = req.body;
 
-        try
-        {
-            if(!id)
-                return res.status(400).send('Id parameter cannot be empty');
+        if(!id)
+            return responseWithError(res, 400, 'Id parameter cannot be empty');
 
-            let basketProduct = await BasketProduct.findOne({where: {id: id}});
+        let basketProduct = await BasketProduct.findOne({where: {id: id}});
 
-            if(!basketProduct) throw(`Basket item with id ${id} was not found`);
+        if(!basketProduct) throw new Error(`Basket item with id ${id} was not found`);
 
-            await basketProduct.destroy();
+        await basketProduct.destroy();
 
-            return res.json({
-                message: 'Basket item was deleted successfully'
-            });
-                
-        }
-        catch(e){
-            next(ApiError.badRequest(e.message))
-        }
+        return res.json({
+            message: 'Basket item was deleted successfully'
+        });
     }
 
     async changeItemCount(req, res, next){
         let {id, count} = req.body;
         let message = '';
 
-        try
-        {
-            if(!id)
-                return res.status(400).send('Id parameter cannot be empty');
+        if(!id)
+            return responseWithError(res, 400, 'Id parameter cannot be empty');
 
-            let basketProduct = await BasketProduct.findOne({where: {id: id}});
+        let basketProduct = await BasketProduct.findOne({where: {id: id}});
 
-            if(!basketProduct) throw(`Basket item with id ${id} was not found`);
+        if(!basketProduct) throw new Error(`Basket item with id ${id} was not found`);
 
-            if(!count && count <= 0){
-                await basketProduct.destroy();
-                message = 'Basket item was deleted successfully';
-            }else {
-                basketProduct.count = count;
-                basketProduct.save();
-                message = 'Basket item count was changed successfully';
-            }
-
-            return res.json({
-                message: message
-            });
-                
+        if(!count && count <= 0){
+            await basketProduct.destroy();
+            message = 'Basket item was deleted successfully';
+        }else {
+            basketProduct.count = count;
+            basketProduct.save();
+            message = 'Basket item count was changed successfully';
         }
-        catch(e){
-            next(ApiError.badRequest(e.message))
-        }
+
+        return res.json({
+            message: message
+        });
     }
 }
 

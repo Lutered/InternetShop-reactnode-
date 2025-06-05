@@ -8,8 +8,6 @@ class PostgesModule{
     constructor(sequelize, models){
         this.sequelize = sequelize;
         this.models = models;
-
-       // sequelize.query(queries.createFilterFn);
     }
 
     async searchProduct(searchValue, page = 1, limit = 9){
@@ -26,21 +24,32 @@ class PostgesModule{
         const productsData = await this.models.Product.findAndCountAll({
             limit,
             page,
-            where: where
+            where: where,
+            include: [{
+                association: 'saler',
+                attributes: ['id', 'name', 'rating']
+            }],
         });
 
-        return productsData;
+        return {
+            count: productsData.count,
+            rows: productsData.rows.map((product, index) => {
+                return {
+                    id: product.uuid,
+                    name: product.name,
+                    price: product.price,
+                    rating: product.rating,
+                    description: product.description,
+                    img: product.img,
+                    salerId: product.saler.id,
+                    salerName: product.saler.name,
+                    salerRating: product.saler.rating
+                }
+            })
+        };
     }
 
-    async getFilteredProducts(productType, filterValueMap, page = 1, limit = 9) {   
-        const productTypeId = this.models.ProductType.findOne({
-            attributes: ['id'],
-            code: productType
-        });
-        
-        if(!productTypeId) 
-            throw `Product type with code ${productType} was not found`;
-        
+    async getFilteredProducts(productTypeId, filterValueMap, page = 1, limit = 9) {           
         let filterCodes = '', filterValues = '';
 
         for(let filter of filterValueMap.entries().toArray()){
@@ -56,7 +65,7 @@ class PostgesModule{
         if(filterCodes != ''){
             const productsData = await this.sequelize.query(queries.filter_getProductsQuery,{
                 replacements: { 
-                    productType, 
+                    productTypeId, 
                     codes: filterCodes, 
                     values: filterValues, 
                     limit: limit, 
@@ -66,7 +75,7 @@ class PostgesModule{
 
             const productsCount = await this.sequelize.query(queries.filter_getProductsCountQuery,{
                 replacements: { 
-                    productType, 
+                    productTypeId, 
                     codes: filterCodes, 
                     values: filterValues, 
                 }
@@ -87,10 +96,30 @@ class PostgesModule{
                     association: 'product_type',
                     attributes: [],
                     where: {
-                        code: productType
+                        id: productTypeId
                     }
+                },{
+                    association: 'saler',
+                    attributes: ['id', 'name', 'rating']
                 }]
             });
+
+            result = {
+                count: result.count,
+                rows: result.rows.map((product, index) => {
+                    return {
+                        id: product.uuid,
+                        name: product.name,
+                        price: product.price,
+                        rating: product.rating,
+                        description: product.description,
+                        img: product.img,
+                        salerId: product.saler.id,
+                        salerName: product.saler.name,
+                        salerRating: product.saler.rating
+                    }
+                })
+            }
         }
 
         return result;

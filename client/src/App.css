@@ -1,3 +1,7 @@
+:root {
+    --nav-height: 80px;
+}
+
 #root{
     min-height: 100dvh;
     display: flex;
@@ -30,4 +34,31 @@
 .main-sidebar-container{
     width: 250px;
     min-height: 100%;
+}
+
+.btn-success{
+    color: #fff;
+    background-color: #197930;
+    border-color: #197930;
+}
+
+.scroll-table-head {
+    display: table;
+    table-layout: fixed;
+    /* width: 100%; */
+    width: calc( 100% - 1em ); /*scrollbar is average 1em/16px width, remove it from thead width */
+}
+
+.scroll-table-body {
+    display: block;
+    height: 50px;
+    overflow-y: scroll;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.scroll-table-row{
+    display: table;
+    width: 100%;
+    table-layout: fixed;/* even columns width , fix width of table too*/
 }

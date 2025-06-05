@@ -1,6 +1,8 @@
 const Router = require('express');
-const router = new Router();
 const userController = require('../controllers/UserController');
+const errorShell = require('./shells/ErrorShell');
+
+const router = new Router();
 
 router.get('/test', userController.test);
 

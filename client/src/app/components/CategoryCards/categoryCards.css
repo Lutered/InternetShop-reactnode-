@@ -1,9 +1,9 @@
 .categoryCard{
-    width: 250px; 
+    width: 260px; 
     float: left; 
     margin: 5px 10px 5px 0;
     padding: 5px;
-    height: 180px;
+    height: 190px;
     cursor: pointer;
     text-align: center;
 }
@@ -19,4 +19,18 @@
 .categoryCard .card-img-top{
     height: 120px;
     width: auto;
+}
+
+.categoryCard .card-body{
+    padding: 1rem;
+}
+
+.categoryCard .card-title{
+    display: -webkit-box;
+    line-clamp: 1;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    height: 2rem;
 }

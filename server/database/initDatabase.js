@@ -1,20 +1,27 @@
 const sequelize = require('./database');
+const uuid = require('uuid');
 const authTokenHelper = require('../helpers/AuthTokenHelper');
 const initDatabaseData = require('../static/debug/initDatabaseData.json');
 
-const fillDebugDataFn = async (dbModel, dataArray, withOrder = false) => {
+const fillDebugDataFn = async (dbModel, dataArray, config) => {
     let dbCount = await dbModel.count();;
 
     if(dbCount !== 0) return;
 
     let order = 1;
     for(let debugObj of dataArray){
-        if(withOrder){
-            await dbModel.create({...debugObj, order: order});
+        let insertObj = {...debugObj};
+
+        if(config?.withOrder){
+            insertObj.order = order;
             order++;
-        }else{
-            await dbModel.create(debugObj);
         }
+
+        if(config?.uuid){
+            insertObj.uuid = uuid.v4();
+        }
+
+        await dbModel.create(insertObj);
     }
 };
 
@@ -72,16 +79,14 @@ module.exports = async (models) => {
             }
         });
 
-        await fillDebugDataFn(models.ProductType, initDatabaseData.types, true);
-        await fillDebugDataFn(models.ProductCategory, initDatabaseData.categories, false);
-        await fillDebugDataFn(models.Brand, initDatabaseData.brands, false);
-        await fillDebugDataFn(models.Saler, initDatabaseData.salers, false);
-        await fillDebugDataFn(models.Product, initDatabaseData.products, false);
-        await fillDebugDataFn(models.FilterItem, initDatabaseData.filterItems, true);
-        await fillDebugDataFn(models.ProductCharGroup, initDatabaseData.productCharGroup, true);
-        await fillDebugDataFn(models.ProductCharItem, initDatabaseData.productCharItems, true);
-        await fillDebugDataFn(models.CharNumberValue, initDatabaseData.charNumberValues, false);
-        await fillDebugDataFn(models.CharStringValue, initDatabaseData.charTextValues, false);
-        await fillDebugDataFn(models.FilterOptions, initDatabaseData.filterOptionItems, false);
+        await fillDebugDataFn(models.ProductType, initDatabaseData.types, { withOrder: true });
+        await fillDebugDataFn(models.ProductCategory, initDatabaseData.categories, { uuid: true });
+        await fillDebugDataFn(models.Saler, initDatabaseData.salers);
+        await fillDebugDataFn(models.Product, initDatabaseData.products, { uuid: true });
+        await fillDebugDataFn(models.FilterItem, initDatabaseData.filterItems, { withOrder: true });
+        await fillDebugDataFn(models.ProductCharGroup, initDatabaseData.productCharGroup, { withOrder: true });
+        await fillDebugDataFn(models.ProductCharItem, initDatabaseData.productCharItems, { withOrder: true });
+        await fillDebugDataFn(models.CharValue, initDatabaseData.charValues);
+        await fillDebugDataFn(models.FilterOption, initDatabaseData.filterOptionItems);
     }
 };

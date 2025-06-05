@@ -7,8 +7,6 @@ import { List, Cart3, Person} from 'react-bootstrap-icons';
 
 import { observer } from "mobx-react-lite";
 
-import LoginModal from '../../modals/LoginModal/LoginModal'
-
 import { HOME_ROUTE, SEARCH_ROUTE } from '../../router/routeConsts';
 import globalServices from '../../../services/globalServices';
 
@@ -67,7 +65,7 @@ const NavBar = observer(() => {
     }, [urlSearchValue, location]);
 
     return (
-        <Navbar bg="dark" className="bg-body-tertiary nav"> 
+        <Navbar bg="dark" className="bg-body-tertiary nav-main"> 
                 {/* <BasketModal /> */}
                 
 

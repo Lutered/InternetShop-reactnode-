@@ -1,11 +1,18 @@
 .filter-container{
-    /* padding-right: 10px; */
+    padding-right: 10px;
     color: #3e3d3d;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.filter-items-container{
+    flex: 1;
+    overflow-y: auto;
 }
 
 .filter-expand-group{
     border-bottom: 1px solid lightgray;
-    padding-right: 10px;
 }
 
 .filter-expand-label{
@@ -31,6 +38,7 @@
 
 .filter-expand-wrapper{
     overflow: hidden;
+    padding: 0 5px;
 }
 
 .filter-expand-element {

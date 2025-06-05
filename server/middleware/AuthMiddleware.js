@@ -5,7 +5,7 @@ module.exports = () => {
       const user = req.user;
       
       if(!user?.isUserAuth){
-         return res.status(403).json({message: 'Неавторизаваный вход'});
+         return res.status(403).json({message: 'Unauthorized access'});
       }
       next();
    }

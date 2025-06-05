@@ -1,6 +1,7 @@
 .productCard{
     /* min-width: 17rem; 
     max-width: 19rem; */
+    min-width: 19rem!important;
     width: 19rem;
     /* float: left;  */
     margin: 2px;

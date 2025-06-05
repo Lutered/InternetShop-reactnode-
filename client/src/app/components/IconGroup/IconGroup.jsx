@@ -6,7 +6,7 @@ const IconGroup = ({sidebarArray, clickFn}) => {
     return (
         <ListGroup className='iconGroup'>
             {sidebarArray.map((rec, index) => 
-                <ListGroup.Item key={index} 
+                <div key={index} 
                                 className="iconGroup-item" 
                                 onClick={() => { clickFn && clickFn(rec)}}>
 
@@ -18,7 +18,7 @@ const IconGroup = ({sidebarArray, clickFn}) => {
                         }
                     </div>
                     <div>{rec.name}</div>
-                </ListGroup.Item>              
+                </div>              
             )}
         </ListGroup>
     );

@@ -1,7 +1,7 @@
 {
     "types": [ 
-        {"id": 2, "name": "Смартфоны", "code":"phones", "icon": "cellphone.svg"},
-        {"id": 1, "name": "Ноутбуки и пк",  "code":"laptops", "icon": "laptop.svg"},
+        {"id": 1, "name": "Смартфоны", "code":"phones", "icon": "cellphone.svg"},
+        {"id": 2, "name": "Ноутбуки и пк",  "code":"laptops", "icon": "laptop.svg"},
         {"id": 3, "name": "Телевизоры и мониторы", "code":"tvs", "icon": "tv.svg"},
         {"id": 9, "name": "Игровые консоли", "code":"consoles", "icon": "console-game.svg"},
         {"id": 4, "name": "Бытовая техника", "code":"households", "icon": "dishwasher.svg"},
@@ -11,20 +11,17 @@
         {"id": 8, "name": "Другая електроника", "code": "others"}
     ],
     "categories":[
-        {"id": 1, "name": "Айфоны", "productTypeId":2, "img": "iphone_category.jpg", "filter": "brand=Apple"},
-        {"id": 2, "name": "Смартфоны Samsung", "productTypeId":2, "img": "samsungs_phone_category.jpg", "filter": "brand=Samsung"},
-        {"id": 3, "name": "Смартфоны Xiaomi", "productTypeId":2, "img": "xiaomi_phone_category.jpg", "filter": "brand=Xiaomi"},
-        {"id": 4, "name": "Смартфоны Poco", "productTypeId":2, "img": "poco_phone_category.jpg"},
-        {"id": 5, "name": "Игровые ноутбуки", "productTypeId": 1, "img": "laptop_category.jpg"},
-        {"id": 6, "name": "Ноутбуки для работы", "productTypeId": 1, "img": "laptop_category.jpg"},
-        {"id": 7, "name": "Игровые ПК", "productTypeId": 1, "img": "pc_category.jpg"},
-        {"id": 8, "name": "Офисные ПК", "productTypeId": 1, "img": "pc_category.jpg"},
-        {"id": 9, "name": "Моноблоки", "productTypeId": 1, "img": "pc_category.jpg"},
+        {"id": 1, "name": "Айфоны", "productTypeId":1, "img": "iphone_category.jpg", "filter": "brand=apple"},
+        {"id": 2, "name": "Смартфоны Samsung", "productTypeId":1, "img": "samsungs_phone_category.jpg", "filter": "brand=samsung"},
+        {"id": 3, "name": "Смартфоны Xiaomi", "productTypeId":1, "img": "xiaomi_phone_category.jpg", "filter": "brand=xiaomi"},
+        {"id": 4, "name": "Смартфоны Poco", "productTypeId":1, "img": "poco_phone_category.jpg"},
+        {"id": 5, "name": "Игровые ноутбуки", "productTypeId": 2, "img": "laptop_category.jpg"},
+        {"id": 6, "name": "Ноутбуки для работы", "productTypeId": 2, "img": "laptop_category.jpg"},
+        {"id": 7, "name": "Игровые ПК", "productTypeId": 2, "img": "pc_category.jpg"},
+        {"id": 8, "name": "Офисные ПК", "productTypeId": 2, "img": "pc_category.jpg"},
+        {"id": 9, "name": "Моноблоки", "productTypeId": 2, "img": "pc_category.jpg"},
         {"id": 10, "name": "Пылесосы", "productTypeId": 4, "img": "vacuumcleaner_category.jpg"},
         {"id": 11, "name": "Кондиционеры", "productTypeId": 5, "img": "airсonditioner_category.jpg"}
-    ],
-    "brands": [
-        {"id": 1, "name": "Direct"}
     ],
     "salers": [
         {"id": 1, "name": "Direct"}
@@ -36,9 +33,7 @@
         "img": "iphone15.jpg", 
         "description": "Екран (6.1, OLED (Super Retina XDR), 2556x1179) / Apple A17 Pro / основна потрійна камера: 48 Мп + 12 Мп + 12 Мп, фронтальна камера: 12 Мп / 128 ГБ вбудованої пам'яті / 3G / LTE / 5G / GPS / Nano-SIM / iOS 17", 
         "rating": 5, 
-        "productTypeId": 2, 
-        "productCategoryId":1, 
-        "brandId": 1,
+        "productTypeId": 1, 
         "salerId": 1,
         "productCharacteristic": "[{\"Label\":\"Test\", \"isTitle\":true},{\"Label\":\"Серия\", \"isTitle\":false, \"Value\":\"Тест\"}]"
     },{
@@ -48,9 +43,7 @@
         "img": "samsungs24.jpg", 
         "description": "Екран (6.7, Dynamic AMOLED 2X, 2340x1080) / Samsung Exynos 2400e (3.1 ГГц + 2.9 ГГц + 2.6 ГГц + 1.95 ГГц) / потрійна основна камера: 50 Мп + 12 Мп + 8 Мп, фронтальна: 10 Мп / RAM 8 ГБ / 256 ГБ вбудованої пам'яті / 3G / LTE / 5G / GPS / підтримка 2х SIM-карток (Nano-SIM, eSIM) / Android 14 / 4700 мА*год", 
         "rating": 4.5, 
-        "productTypeId": 2, 
-        "productCategoryId":2, 
-        "brandId": 1,
+        "productTypeId": 1, 
         "salerId": 1,
         "productCharacteristic": "[{\"Label\":\"Серия\", \"isTitle\":true},{\"Label\":\"Серия\", \"isTitle\":false, \"Value\":\"Galaxy\"}, {\"Label\":\"Дисплей\", \"isTitle\":true}, {\"Label\":\"Диагональ екрана\", \"isTitle\":false, \"Value\":\"6.9\"}, {\"Label\":\"Тип матрицы\", \"isTitle\":false, \"Value\":\"OLED\"} ]"
 
@@ -61,9 +54,7 @@
         "img": "laptop1.jpg", 
         "description": "IPS Full HD / Intel Core i5-12450H / RAM 16 ГБ / SSD 512 ГБ / nVidia GeForce RTX 3050, 4 ГБ ", 
         "rating": 3.5, 
-        "productTypeId": 1, 
-        "productCategoryId":5, 
-        "brandId": 1,
+        "productTypeId": 2, 
         "salerId": 1
     },{
         "id": 4, 
@@ -72,9 +63,7 @@
         "img": "laptop2.jpg", 
         "description": "Intel Core i3-1215U / RAM 16 ГБ / SSD 512 ГБ", 
         "rating": 4, 
-        "productTypeId": 1,
-        "productCategoryId":6,  
-        "brandId": 1,
+        "productTypeId": 2, 
         "salerId": 1
     },{
         "id": 5, 
@@ -84,8 +73,6 @@
         "description": "Комбінована щітка, щілинна насадка та міні-насадка з турбощіткою 3-ступенева система фільтрації надійно утримує всмоктаний пил Цифровий двигун для довговічності Модуль Aqua дозволяє пилососити та мити підлогу одним рухом", 
         "rating": 3.2, 
         "productTypeId": 4, 
-        "productCategoryId":10, 
-        "brandId": 1,
         "salerId": 1
     },{
         "id": 6, 
@@ -95,8 +82,6 @@
         "description": "", 
         "rating": 2, 
         "productTypeId": 5, 
-        "productCategoryId":10, 
-        "brandId": 1,
         "salerId": 1
     },{
         "id": 7, 
@@ -106,55 +91,58 @@
         "description": "Зовнішній блок / Внутрішній блок з кронштейном / Пульт ДК",
         "rating": 2.7, 
         "productTypeId": 5, 
-        "productCategoryId":11, 
-        "brandId": 1,
         "salerId": 1
     }],
     "filterOptionItems": [
-        {"id": 1, "label": "Apple", "itemId": 1},
-        {"id": 2, "label": "Samsung", "itemId": 1},
-        {"id": 3, "label": "Xiaomi", "itemId": 1}
+        {"id": 1, "label": "Apple", "code": "apple", "filterItemId": 1},
+        {"id": 2, "label": "Samsung", "code": "samsung", "filterItemId": 1},
+        {"id": 3, "label": "Xiaomi", "code": "xiaomi", "filterItemId": 1}
     ],
     "filterItems": [{
         "label": "Бренд", 
         "code": "brand", 
-        "productTypeId": 2, 
+        "productTypeId": 1, 
         "charItemTypeId": 1,
         "typeId": 1, 
         "props": ""
     },{
         "label": "Размер екрана", 
         "code": "display_size", 
-        "productTypeId": 2, 
+        "productTypeId": 1, 
         "charItemTypeId": 3,
         "props": ""
     }],
     "productCharGroup": [{
         "label": "Производитель", 
-        "productId": 1
+        "productTypeId": 1
     },{
         "label": "Дисплей", 
-        "productId": 1
+        "productTypeId": 1
     }],
     "productCharItems": [{
         "label": "Бренд",  
-        "productId": 2,
+        "productTypeId": 1,
         "productCharGroupId": 1, 
         "filterItemId": 1, 
-        "charItemTypeId": 1, 
-        "valueId": 1
+        "charItemTypeId": 1 
     },{
         "label": "Размер екрана", 
-        "productId": 2,
+        "productTypeId": 1,
         "productCharGroupId": 2, 
         "filterItemId": 2, 
-        "charItemTypeId": 3, 
-        "valueId": 1
+        "charItemTypeId": 3
     }],
-    "charNumberValues": [{
-        "value": 15
-    }],
-    "charTextValues": [{
-        "value": "Samsung"
+    "charValues": [{
+        "productId": 2,
+        "productCharItemId": 1,
+        "textValue": "samsung"
+    },{
+        "productId": 2,
+        "productCharItemId": 2,
+        "numValue": 15
+    },{
+        "productId": 1,
+        "productCharItemId": 1,
+        "textValue": "apple"
     }]
 }

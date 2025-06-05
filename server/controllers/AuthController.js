@@ -1,5 +1,5 @@
-const ApiError = require('../error/ApiError');
 const authTokenHelper = require('../helpers/AuthTokenHelper');
+const { responseWithError }= require('../helpers/ErrorHelper');
 const repository = require('../database/repository');
 const {User} = repository.models;
 
@@ -8,12 +8,12 @@ class AuthController{
         const {name, email, password} = req.body;
 
         if (!email || !password) {
-            return next(ApiError.badRequest('Некорректный email или password'))
+            return responseWithError(res, 400, 'Wrong email or password');
         }
 
         const candidate = await User.findOne({where: {email}})
         if (candidate) {
-            return next(ApiError.badRequest('Пользователь с таким email уже существует'))
+            return responseWithError(res, 400, 'User with such email already exists');
         }
 
         const userName = name ?? email;
@@ -27,16 +27,16 @@ class AuthController{
     async login(req, res, next){
         const {email, password} = req.body;
         if (!email || !password) {
-            return next(ApiError.badRequest('Некорректный email или пароль'))
+            return responseWithError(res, 400, 'Wrong input parameters');
         }
 
         const user = await User.findOne({where: {email}});
         if(!user){
-            return next(ApiError.badRequest('Неверный email или пароль'));
+            return responseWithError(res, 400, 'User with such email was not found');
         }
 
         if(!await authTokenHelper.comparePassword(password, user.password)){
-            return next(ApiError.badRequest('Неверный email или пароль'));
+            return responseWithError(res, 400, 'Wrong email or password');
         }
 
         const token = authTokenHelper.generateJwtSync(user);

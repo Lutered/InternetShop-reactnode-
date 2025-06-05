@@ -1,0 +1,11 @@
+.productSearch-title{
+    padding: 0 5px;
+    height: 80px;
+    align-items: center;
+    display: flex;
+}
+
+.productSearch-container{
+    border-top: 1px solid lightgray;
+    flex: 1;
+}

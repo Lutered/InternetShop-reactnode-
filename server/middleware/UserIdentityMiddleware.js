@@ -1,7 +1,7 @@
 const authTokenHelper = require('../helpers/AuthTokenHelper');
 
 module.exports = function (req, res, next) {
-   const token = req.headers["authorization"];
+   let token = req.headers["authorization"];
    let userDetails;
 
    req.user = {
@@ -11,13 +11,15 @@ module.exports = function (req, res, next) {
 
    if(token){ 
         try{
+            token = token.replace('Bearer ', '');
+
             userDetails = authTokenHelper.verifyJwt(token);
             req.user = {
                 isUserAuth: true,
                 userDetails
             };
         }catch{
-                return res.status(403).json({message: 'Invalid token'});
+            return res.status(403).json({message: 'Invalid token'});
         } 
    }
 

@@ -5,7 +5,7 @@ import {
     register
 } from '../http/API/AuthApi';
 
-import Cookies from 'js-cookie';
+//import Cookies from 'js-cookie';
 
 export default class UserService{
     _authToken = 'AuthToken';
@@ -47,11 +47,13 @@ export default class UserService{
     }
 
     getAuthToken(){
-        return Cookies.get(this._authToken) ?? '';
+        //return Cookies.get(this._authToken) ?? '';
+        return localStorage.getItem(this._authToken) ?? '';
     }
 
     setAuthToken(token){
-        Cookies.set(this._authToken, token);
+        //Cookies.set(this._authToken, token);
+        localStorage.setItem(this._authToken, token);
         const userJson =  this.parseJwt(token);
         this.setUser(userJson);
     }

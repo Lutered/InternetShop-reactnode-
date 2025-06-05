@@ -1,7 +1,8 @@
-.nav{
-    position: sticky;
-    top:0;
+.nav-main{
+    position: sticky!important;
+    top: 0;
     z-index: 100;
+    height: var(--nav-height);
 }
 
 .nav-search{
@@ -35,15 +36,15 @@
 }
 
 .nav-buttons{
-    border: 0px none transparent;
-    padding: 10px;
+    border: 0px none transparent!important;
+    padding: 10px!important;
     margin-right: 5px;
     margin-left: 5px;
     box-shadow: none !important;
 }
 
 .nav-buttons:hover{
-    background-color: #4b5259; 
+    background-color: #4b5259!important; 
 }
 
 .nav-brand{

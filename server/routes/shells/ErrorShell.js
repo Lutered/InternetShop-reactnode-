@@ -1,4 +1,4 @@
-const ApiError = require('../../error/ApiError');
+const { responseWithError }= require('../../helpers/ErrorHelper');
 
 errorShell = (execFunc) => {
     return async (req, res, next) => {
@@ -7,7 +7,7 @@ errorShell = (execFunc) => {
         }
         catch(e){
             console.error(e);
-            return res.status(500).json({message: 'Unexpected error'});
+            return responseWithError(res, 500, 'Unexpected error');
         }
     }
 };

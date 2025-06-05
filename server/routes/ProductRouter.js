@@ -5,9 +5,9 @@ const errorShell = require('./shells/ErrorShell');
 const router = new Router();
 
 router.post('/create', errorShell(productController.createProduct));
-//router.get('/search', errorShell(productController.searchProducts));
 router.get('/search', errorShell(productController.searchProducts));
-router.get('/search2/:productType', errorShell(productController.getFilteredProducts));
+router.get('/search/:productType', errorShell(productController.getFilteredProducts));
+router.get('/getFilterOptions/:id', errorShell(productController.getFilterOptions));
 router.get('/get/:id', errorShell(productController.getProduct));
 router.get('/createType', errorShell(productController.createType));
 router.get('/getType/:code', errorShell(productController.getType));

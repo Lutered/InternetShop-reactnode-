@@ -11,14 +11,34 @@ const $authHost = axios.create({
 
 const authInterceptor = config => {
     const userService = globalServices.getUserServices();
-    //localStorage.getItem('token')
     config.headers.authorization = `Bearer ${userService.getAuthToken()}`
     return config;
 }
 
 $authHost.interceptors.request.use(authInterceptor);
 
+const executeRequest = async (axiosPromise) => {
+    let response = {
+        data: null,
+        errorMessage: null,
+        errorCode: null
+    };
+
+    try{
+        let {data} = await axiosPromise;
+        response.data = data;
+    }catch(e){
+        console.error(e);
+
+        response.errorMessage = e.message;
+        response.errorCode = e.code;
+    }
+
+    return response;
+};
+
 export {
     $host,
-    $authHost
+    $authHost,
+    executeRequest
 }

@@ -18,7 +18,6 @@ import globalServices from '../../../services/globalServices';
 import './productTabs.css';
 
 function ProductTabs({product}) {
-    const characteristics = product.productCharacteristic ? JSON.parse(product.productCharacteristic) : [];
     const basketService = globalServices.getBasketService();
 
     const addToBasketClickFn = (id) => {
@@ -48,7 +47,7 @@ function ProductTabs({product}) {
                                 <div className='productTabs-salerprice-container'>
                                     <div className='productTabs-saler-container'>
                                             <span className='productTabs-saler-label'>Продавец:</span>
-                                            <b className='productTabs-saler-name'>{product.saler?.name}</b>
+                                            <b className='productTabs-saler-name'>{product.salerName}</b>
                                     </div>
                                     <div className='productTabs-price-container'>
                                         <p className="productTabs-price">
@@ -72,19 +71,22 @@ function ProductTabs({product}) {
             <Tab eventKey="characteristics" title="Характеристики">
                 <p className='productTabs-characterestics-title'>Характеристики <b>{product.name}</b></p>
                 <dl className='productTabs-characterestics-list'>
-                    {characteristics.map((val, index) => 
-                        val.isTitle ? 
-                        <dt key={index} className='d-flex productTabs-characterestics-listdtItem'>
-                            <span className='productTabs-characterestics-dtlabel'>{val.Label}</span>
-                        </dt>  
-                        :
-                        <dd key={index} className='d-flex'>
-                          <div className='productTabs-characterestics-ddLabel d-flex'>
-                            <span>{val.Label}</span>
-                            <div className='productTabs-characterestics-ddSplitter'></div>
-                          </div>
-                          <span className='productTabs-characterestics-ddValue'>{val.Value}</span>
-                      </dd>
+                    {product?.chars?.map((val, groupIndex) => 
+                        <div key={groupIndex}>
+                            <dt className='d-flex productTabs-characterestics-listdtItem'>
+                                <span className='productTabs-characterestics-dtlabel'>{val.label}</span>
+                            </dt>  
+                            
+                            {val?.items.map((val, itemIndex) => 
+                                <dd key={itemIndex} className='d-flex'>
+                                    <div className='productTabs-characterestics-ddLabel d-flex'>
+                                    <span>{val.label}</span>
+                                    <div className='productTabs-characterestics-ddSplitter'></div>
+                                    </div>
+                                    <span className='productTabs-characterestics-ddValue'>{val.value}</span>
+                                </dd>
+                            )}
+                        </div>
                     )}
                     {/* <dd style={{display:'flex'}}>
                         <span style={{width: '100%', fontWeight: 'bold'}}>Тест</span>

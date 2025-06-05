@@ -1,10 +1,21 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import './sidebar.css';
 
-const Sidebar = ({children}) => {
+const Sidebar = ({children, style}) => {
+    if(!style){
+        style = {
+            height: 'calc(100dvh - var(--nav-height))',
+            position: 'sticky',
+            top: 'var(--nav-height)'
+        };
+    }
+
     return (
-        <div className='sidebar'>
+        <div 
+            className='sidebar'
+            style={style}
+        >
             {children}
         </div>
     );
